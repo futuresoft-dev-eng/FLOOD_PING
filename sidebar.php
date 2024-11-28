@@ -238,7 +238,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 ?>
     <!-- Top bar  -->
     <div class="top-bar d-md-none">
-        <a href="admindashboard.php" class="nav-link">
+        <a href="authority_dashboard.php" class="nav-link">
             <span class="material-symbols-rounded">dashboard</span>
         </a>
         <a href="activitylog.php" class="nav-link">
@@ -277,7 +277,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         <div class="sidebar-content">
         <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="la.php" class="nav-link">
+                    <a href="authority_dashboard.php" class="nav-link">
                         <span class="material-symbols-rounded">dashboard</span> <span class="icon-text">Dashboard</span>
                     </a>
                 </li>
