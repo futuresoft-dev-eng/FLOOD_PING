@@ -169,7 +169,7 @@
                         </div>
                         <div class="card">
                             <h3>Actual Speed Rate</h3>
-                            <div class="card-value">0.02 m/min</div>
+                            <div style="color:red;" class="card-value">0.02 m/min</div>
                         </div>
                         <div class="card">
                             <h3>Average Speed Rate</h3>
