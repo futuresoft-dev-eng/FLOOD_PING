@@ -231,9 +231,14 @@
 </head>
 
 <body>
+
+<?php
+$fullName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Guest User';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
+?>
     <!-- Top bar  -->
     <div class="top-bar d-md-none">
-        <a href="admindashboard.php" class="nav-link">
+        <a href="authority_dashboard.php" class="nav-link">
             <span class="material-symbols-rounded">dashboard</span>
         </a>
         <a href="activitylog.php" class="nav-link">
@@ -272,7 +277,7 @@
         <div class="sidebar-content">
         <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="la.php" class="nav-link">
+                    <a href="authority_dashboard.php" class="nav-link">
                         <span class="material-symbols-rounded">dashboard</span> <span class="icon-text">Dashboard</span>
                     </a>
                 </li>
@@ -314,8 +319,8 @@
             <a href="la_profile.php" class="user-link">
                 <span class="material-symbols-rounded user-icon">account_circle</span>
                 <div>
-                    <div class="user-name">KIM MINGYU</div>
-                    <div class="user-role">LA</div>
+                <div class="user-name"><?= htmlspecialchars($fullName); ?></div>
+                <div class="user-role"><?= htmlspecialchars($role); ?></div>
                 </div>
             </a>
             <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">

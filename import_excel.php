@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     $allowedTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
 
     if (!in_array($file['type'], $allowedTypes)) {
-        header("Location: accountservices.php?error=Invalid+file+type.+Only+.xls+and+.xlsx+files+are+allowed.");
+        header("Location: residents_list.php?error=Invalid+file+type.+Only+.xls+and+.xlsx+files+are+allowed.");
         exit();
     }
 
@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
 
             // Validate mobile number
             if (!preg_match('/^09\d{9}$/', $mobile_number)) {
-                header("Location: accountservices.php?error=Invalid+mobile+number.+Must+start+with+09+and+be+11+digits.");
+                header("Location: residents_list.php?error=Invalid+mobile+number.+Must+start+with+09+and+be+11+digits.");
                 exit();
             }
 
             // Validate email address
             if (!preg_match('/^[a-zA-Z0-9._%+-]+@gmail\.com$/', $email_address)) {
-                header("Location: accountservices.php?error=Invalid+email+address.+Must+end+with+@gmail.com.");
+                header("Location: residents_list.php?error=Invalid+email+address.+Must+end+with+@gmail.com.");
                 exit();
             }
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
             $today = new DateTime();
             $age = $today->diff($dob)->y;
             if ($age < 18) {
-                header("Location: accountservices.php?error=Invalid+age.+Resident+must+be+at+least+18+years+old.");
+                header("Location: residents_list.php?error=Invalid+age.+Resident+must+be+at+least+18+years+old.");
                 exit();
             }
 
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
                     $fkResult = $checkFKQuery->get_result();
 
                     if ($fkResult->num_rows === 0) {
-                        header("Location: accountservices.php?error=Invalid+$columnName+value+$value.");
+                        header("Location: residents_list.php?error=Invalid+$columnName+value+$value.");
                         exit();
                     }
                 }
@@ -106,13 +106,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
             }
         }
 
-        header("Location: accountservices.php?message=File+imported+successfully");
+        header("Location: residents_list.php?message=File+imported+successfully");
         exit();
     } catch (Exception $e) {
-        header("Location: accountservices.php?error=Error+loading+file:+".urlencode($e->getMessage()));
+        header("Location: residents_list.php?error=Error+loading+file:+".urlencode($e->getMessage()));
         exit();
     }
 } else {
-    header("Location: accountservices.php?error=No+file+uploaded.");
+    header("Location: residents_list.php?error=No+file+uploaded.");
     exit();
 }

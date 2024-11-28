@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_residents'])
     header("Location: $redirectUrl");
     exit;
 } else {
-    header('Location: accountservice.php');
+    header('Location: residents_list.php');
     exit;
 }
 ?>

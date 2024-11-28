@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             $affectedRows = $stmt->affected_rows;
-            header("Location: accountservices.php?status_updated=$newStatus&updated_count=$affectedRows");
+            header("Location: residents_list.php?status_updated=$newStatus&updated_count=$affectedRows");
             exit();
         } else {
             echo "Error updating status: " . $stmt->error;

@@ -238,7 +238,7 @@
             modal.style.display = 'flex';
 
             setTimeout(() => {
-                window.location.href = "accountservices.php";
+                window.location.href = "residents_list.php";
             }, 3000);
         }
     </script>
@@ -354,7 +354,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main class="main-content">
 <div class="container">
     <div class="header">
-    <a href="accountservices.php" class="back-button">
+    <a href="residents_list.php" class="back-button">
     <span class="material-symbols-rounded">arrow_back</span>
 </a>
         <h2>RESIDENT PROFILE CREATION</h2>

@@ -529,7 +529,7 @@ function confirmUpdate(event) {
 <body>
 <div class="container">
     <div class="header">
-    <a href="accountservices.php" class="back-button">
+    <a href="residents_list.php" class="back-button">
     <span class="material-symbols-rounded">arrow_back</span>
 </a>
         <h2>RESIDENT DETAILS</h2>
@@ -732,7 +732,7 @@ function confirmUpdate(event) {
         </div>
         <p>The resident profile has been deleted.</p>
         <div class="modal-buttons">
-        <a href="accountservices.php" class="btn btn-yes">OK</a>
+        <a href="residents_list.php" class="btn btn-yes">OK</a>
         </div>
     </div>
 </div>
