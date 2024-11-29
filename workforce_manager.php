@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-left: 197px;
-            margin-top: 613px;
+            margin-top: 575px;
             position: absolute;
             width: 80.9%;
         }
@@ -309,7 +309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             display: flex;
             margin: 20px 0;
             position: absolute;
-            top: 650px;
+            top: 610px;
             left: 269px;
             border-radius: none !important;
         }
