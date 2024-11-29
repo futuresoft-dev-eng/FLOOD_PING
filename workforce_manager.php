@@ -394,6 +394,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
         #roleFilter option {
             padding: 10px;
         }
+
+       #assign-btn:disabled {
+    background-color: #ddd; /* Gray out the button */
+    cursor: not-allowed; /* Change the cursor to indicate the button is disabled */
+}
     </style>
 </head>
 <body>
@@ -519,7 +524,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
           </div>";
 }
 ?>
-                <button id="assign-btn" type="submit" name="assign_schedule">ASSIGN</button>
+                <button id="assign-btn" type="submit" name="assign_schedule" disabled>ASSIGN</button>
             </form>          
         </div>
     </div>
@@ -634,6 +639,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
         filteredRows.forEach(row => tableBody.appendChild(row));
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+    const assignButton = document.getElementById('assign-btn');
+
+    // Save the initial state of the checkboxes
+    const initialState = Array.from(checkboxes).map(checkbox => checkbox.checked);
+
+    // Function to check if any checkbox is selected or changed
+    function updateAssignButtonState() {
+        let isAnyChecked = false;
+
+        // Loop through all checkboxes and check if any are checked
+        checkboxes.forEach(function(checkbox, index) {
+            if (checkbox.checked !== initialState[index]) {
+                isAnyChecked = true;  // Mark as changed
+            }
+        });
+
+        // Enable the assign button if at least one checkbox is checked or any checkbox is changed
+        if (isAnyChecked) {
+            assignButton.disabled = false;
+            assignButton.classList.remove('disabled');  // Remove any 'disabled' class if present
+        } else {
+            assignButton.disabled = true;
+            assignButton.classList.add('disabled');  // Add a 'disabled' class to style if needed
+        }
+    }
+
+    // Add event listeners to each checkbox
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateAssignButtonState);
+    });
+
+    // Initial check to set the correct state of the button when the page loads
+    updateAssignButtonState();
+});
+
 </script>
 
 </body>
