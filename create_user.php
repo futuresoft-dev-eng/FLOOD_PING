@@ -527,7 +527,7 @@ $conn->close();
 
 <body>
 <div class="header">
-<a href="http://localhost/floodping/ADMIN/accountservices.php" class="back-button">
+<a href="add_user.php" class="back-button">
 <span class="material-symbols-rounded">arrow_back</span>
 </a>    
 <hr style="color: #ccc; width: 90%; position: absolute; margin: 70px 0px 0px -20px;">
