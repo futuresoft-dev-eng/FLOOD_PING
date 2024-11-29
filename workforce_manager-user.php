@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
 
     if ($stmt->execute()) {
         // Successfully updated
-        echo "<script>alert('Schedule and shift updated successfully!'); window.location.href = 'workforce_manager-user.php';</script>";
+        echo "<script>alert('Schedule and shift updated successfully!'); window.location.href = 'workforce_manager.php';</script>";
     } else {
         // Error during execution
         echo "<script>alert('Error updating schedule and shift!');</script>";
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-left: 197px;
-            margin-top: 613px;
+            margin-top: 575px;
             position: absolute;
             width: 80.9%;
         }
@@ -309,7 +309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             display: flex;
             margin: 20px 0;
             position: absolute;
-            top: 650px;
+            top: 610px;
             left: 269px;
             border-radius: none !important;
         }
@@ -405,8 +405,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
     <hr style="color: gray; width: 90%; position: absolute; margin: 10px 0px 0px 50px;">
 
     <div class="buttons-container">
-    <button class="navigation-btn" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'workforce_manager.php')">Unassigned Accounts</button>
-    <button class="navigation-btn active" id="residentsBtn" onclick="activateButton('residentsBtn', 'workforce_manager-user.php')">User Accounts</button>
+    <button class="navigation-btn active" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'workforce_manager.php')">Unassigned Accounts</button>
+    <button class="navigation-btn" id="residentsBtn" onclick="activateButton('residentsBtn', 'workforce_manager-user.php')">User Accounts</button>
 </div>
 
     <div class="container">
@@ -517,8 +517,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
                 </select>
             </label>
           </div>";
-        }
-        ?>
+}
+?>
                 <button id="assign-btn" type="submit" name="assign_schedule">ASSIGN</button>
             </form>          
         </div>
@@ -558,7 +558,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             <tbody id="userTableBody">
                 <?php
                 // Fetch users from the database
-                $result = $conn->query("SELECT user_id, first_name, middle_name, last_name, suffix, schedule, shift, role, account_status FROM users WHERE schedule IS NOT NULL AND shift IS NOT NULL");
+                $result = $conn->query("SELECT user_id, first_name, middle_name, last_name, suffix, schedule, shift, role, account_status FROM users WHERE schedule IS NULL OR shift IS NULL");
                 while ($row = $result->fetch_assoc()) {
                     $schedule = $row['schedule'] ?: "Unassigned";
                     $shift = $row['shift'] ?: "Unassigned";
