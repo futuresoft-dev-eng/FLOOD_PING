@@ -8,18 +8,16 @@ include 'adminsidebar.php';
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View User</title>
-    <link rel="stylesheet" href="styles.css">
     <style type="text/css">
 
         .container { 
             max-width: 100%; 
             height: 130vh !important;
-            margin: 0 0px 0px -80px; 
+            margin: 0 0px 0px 160px; 
             padding: 20px;
             font-family: Poppins; 
             background-color: #FFFFFF !important; 
@@ -50,7 +48,7 @@ include 'adminsidebar.php';
             cursor: pointer;
             text-decoration: none; 
             z-index: 100;
-            margin: 20px 0px 0px -17px;
+            margin: 30px 0px 0px 227px;
             position: absolute;
         }   
 
@@ -84,9 +82,10 @@ include 'adminsidebar.php';
             position: absolute;
             width: 90%;
         }
+        
         .info-item-id  {
             width: 130px;
-            margin: 80px 0px 0px 930px;
+            margin: 50px 0px 0px 930px;
             position: absolute;
             font-size: 14px;
         }
@@ -103,16 +102,15 @@ include 'adminsidebar.php';
 
         #userID-title {
             width: 100%;
-            margin: 130px 0px 0px 120px;
+            margin: 125px 0px 0px 120px;
             position: absolute;
             font-size: 15px;
             color: black;
         }
 
-
         #address-title {
             position: absolute;
-            margin-top: -20px;
+            margin-top: -10px;
         }
 
         #address {
@@ -172,7 +170,7 @@ include 'adminsidebar.php';
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 60px 0px 0px 1050px;
+            margin: 40px 0px 0px 1050px;
             position: absolute;
         }
 
@@ -239,14 +237,14 @@ include 'adminsidebar.php';
         #updateButton {
             font-size: 14px;
             width: 17%;
-            height: 8.5%;
+            height: 10%;
             padding: 8px auto;
             border: none;
             border-radius: 5px;
             color: #FFFFFF;
             background-color: #4597C0;
             text-transform: uppercase;
-            margin: 600px 0px 0px 1000px;
+            margin: 510px 0px 0px 970px;
             position: absolute;
         }
 
@@ -260,7 +258,7 @@ include 'adminsidebar.php';
             color: #FFFF;
             background-color: #0073AC;
             text-transform: uppercase;
-            margin: 30px 0px 0px 905px;
+            margin: 30px 0px 0px 1150px;
             position: absolute;
 
         }
@@ -270,12 +268,17 @@ include 'adminsidebar.php';
         }
 
         #job {
-            margin-top: 45px;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        #personal {
+            margin-top: -20px;
             position: relative;
         }
 
         #brgy {
-            margin-top: 25px;
+            margin-top: 15px;
             position: relative;
         }
 
@@ -285,9 +288,9 @@ include 'adminsidebar.php';
         }
 
         #statuslbl {
-            font-size: 16px;
+            font-size: 20px;
             color: #02476A;
-            margin: 500px 0px 0px 30px;
+            margin: 400px 0px 0px 30px;
             
         }
          
@@ -300,7 +303,7 @@ include 'adminsidebar.php';
             border-radius: 5px;
             color: black;
             text-transform: uppercase;
-            margin: 530px 0px 0px -50px;
+            margin: 435px 0px 0px -60px;
             position: absolute;
 
         }
@@ -315,7 +318,7 @@ include 'adminsidebar.php';
             border-radius: 5px;
             color: #FFFFFF;
             text-transform: uppercase;
-            margin: 530px 0px 0px 200px;
+            margin: 435px 0px 0px 190px;
             position: absolute;
         }
 
@@ -329,14 +332,14 @@ include 'adminsidebar.php';
             color: #FFFFFF;
             background-color: #EA3323;
             text-transform: uppercase;
-            margin: 74px 0px 0px 820px;
+            margin: 74px 0px 0px 800px;
             position: absolute;
         }
 
         #resident-title {
             font-size: 20px;
             font-weight: bold;
-            margin: 25px 0px 0px 80px;
+            margin: 35px 0px 0px 310px;
             position: absolute;
             text-transform: uppercase;
         }
@@ -350,7 +353,7 @@ include 'adminsidebar.php';
             justify-content: center;
             align-items: center;
             margin-top: 50px;
-            margin-left: 500px;
+            margin-left: 550px;
             position: fixed;
             background-color: transparent;
         }
@@ -403,7 +406,7 @@ include 'adminsidebar.php';
             font-size: 12px;
             text-transform: uppercase;
         }
-
+        
         button#close-button {
             background-color: #4597C0;
             color: white;
@@ -427,7 +430,7 @@ include 'adminsidebar.php';
             margin-left: 300px;
             position: fixed;
         }
-
+        
         #archive-model-content {
             background-color: white;
             border-radius: 8px !important;
@@ -439,9 +442,8 @@ include 'adminsidebar.php';
             font-size: 12px;
             text-align: justify;
             border: 2px solid #ccc;
-
         }
-
+        
         #archive-modal-content h2 {
             width: 55%;
             font-size: 15px;
@@ -498,7 +500,7 @@ include 'adminsidebar.php';
 <body>
     <div class="header">
         <p id="resident-title"> Resident's Details </p>
-    <a href="http://localhost/floodping/ADMIN/accountservices.php" class="back-button">
+    <a href="http://localhost/floodping/add_user.php" class="back-button">
 <span class="material-symbols-rounded">arrow_back</span>
 </a>    
 <hr style="color: #ccc; width: 90%; position: absolute; margin: 90px 0px 0px -20px;">
@@ -510,10 +512,7 @@ include 'adminsidebar.php';
     <div class="container">
     <div class="title-container">
         <h3>PROFILE</h3>
-
    <form method="POST" enctype="multipart/form-data" action="update_user.php?user_id=<?= $user['user_id'] ?>">
-   
-  
     </div>
 
     <!-- Custom Label as Button -->
@@ -538,36 +537,35 @@ include 'adminsidebar.php';
     <label id="userID-title">Resident ID</label>
     <input type="text" value="<?= htmlspecialchars($user['user_id']) ?>" readonly class="readonly-field"><br>
     <br>
-    </div>
-    
+    </div> 
 
-    <div class="info-item">
-    <p id="personal-info-title">Personal Information</p>
+    <div class="info-item" id="personal">
+    <p id="personal-info-title" style="margin: -30px 0px 5px -3px;">Personal Information</p>
     <label>First Name:</label>
     <input type="text" name="first_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['first_name']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Middle Name (Optional)</label>
     <input type="text" name="middle_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['middle_name']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Last Name</label>
     <input type="text" name="last_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['last_name']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Suffix (Optional)</label>
     <input type="text" name="suffix" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['suffix']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Contact No</label>
     <input type="text" name="contact_no" value="<?= htmlspecialchars($user['contact_no']) ?>" id="contactNo" maxlength="11" oninput="validateContactNumber()"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" style="margin-top: -20px;">
     <label>Sex</label><br>
     <div class="sex-option">
     <input type="radio" name="sex" id="male-sex" value="Male" 
@@ -583,17 +581,17 @@ include 'adminsidebar.php';
 </div>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Birthdate</label>
     <input type="date" name="birthdate" value="<?= htmlspecialchars($user['birthdate']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Email</label>
     <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>"><br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="brgy" style="margin-top: -10px;">
     <p id="address-title">Address</p>
     <br>
     <label>City</label>
@@ -616,8 +614,8 @@ include 'adminsidebar.php';
     </div>
 
     <div class="info-item">
-    <p>Job Description</p>
-    <label>Role:</label>
+    <p style="margin: -5px 0px 0px -3px;">Job Description</p>
+    <label>Role</label>
     <select name="role">
         <option value="Admin" <?= ($user['role'] === 'Admin') ? 'selected' : '' ?>>Admin</option>
         <option value="Local Authority" <?= ($user['role'] === 'Local Authority') ? 'selected' : '' ?>>Local Authority</option>
@@ -640,8 +638,6 @@ include 'adminsidebar.php';
     <label>Work Time Schedule</label>
     <input type="text" name="shift" value="<?= htmlspecialchars($user['shift']) ?>" readonly class="readonly-field"><br>
     </div>
-
-    <hr style="color: #ccc; width: 90%; position: absolute; margin: 70px 0px 0px -20px;">
 
     <button id="updateButton" type="submit">UPDATE</button>
 </form>
@@ -808,10 +804,5 @@ function confirmStatusChange(action) {
     }
 </script>
 
-
-
-
-
 </body>
-
 </html>
