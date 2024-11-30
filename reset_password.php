@@ -208,7 +208,7 @@ function closeModal() {
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 400px;
             height: 530px;
-            margin: 0px 0px 0px 380px;
+            margin: 0px 0px 0px 500px;
             position: absolute;
         }
 
@@ -241,7 +241,7 @@ function closeModal() {
             height: 530px;
             border-top-right-radius: 20px;
             border-bottom-right-radius: 20px;  
-            margin: 140px 0px 0px 780px;
+            margin: 140px 0px 0px 900px;
         }
 
         .info-group { 
@@ -415,7 +415,7 @@ function closeModal() {
             padding: 5px 55px;
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 250px 0px 0px 0px;
+            margin: 370px 0px 0px 0px;
             position: absolute;
         }
 
@@ -531,3 +531,4 @@ function updateDateTime() {
 
 </body>
 </html>
+
