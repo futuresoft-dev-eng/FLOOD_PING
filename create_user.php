@@ -201,7 +201,7 @@ $conn->close();
             cursor: pointer;
             text-decoration: none; 
             z-index: 100;
-            margin: 20px 0px 0px 250px;
+            margin: 30px 0px 0px 250px;
             position: absolute;
         }   
 
