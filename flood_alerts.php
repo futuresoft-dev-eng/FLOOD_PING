@@ -1,7 +1,8 @@
 <?php
 include 'db_conn.php';
-$sql = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;"; 
-$result = $conn->query($sql);
+
+$sql_new_alerts = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;";
+$result_new_alerts = $conn->query($sql_new_alerts);
 ?>
 
 <!DOCTYPE html>
@@ -78,8 +79,9 @@ $result = $conn->query($sql);
 </head>
 <body>
 
+<p>NEW FLOOD ALERTS</p>
 <?php
-if ($result->num_rows > 0) {
+if ($result_new_alerts->num_rows > 0) {
     echo '<table>';
     echo '<thead>
             <tr>
@@ -96,36 +98,26 @@ if ($result->num_rows > 0) {
           </thead>';
     echo '<tbody>';
 
-    $rows = $result->fetch_all(MYSQLI_ASSOC); 
+    $rows = $result_new_alerts->fetch_all(MYSQLI_ASSOC); 
     $defaultMeter = 1.0; 
 
     for ($i = 0; $i < count($rows); $i++) {
         $id = $rows[$i]['id'];
         $timestamp = $rows[$i]['timestamp'];
         $meters = $rows[$i]['meters'];
-        $speed = $rows[$i]['speed'];
+        $rate = $rows[$i]['rate'];
         $alert_level = $rows[$i]['alert_level'];
         $status = $rows[$i]['status'];
         $disabled = $i > 0 ? 'disabled' : '';
         $date = date("m/d/Y", strtotime($timestamp));
         $time = date("g:i:s A", strtotime($timestamp));
 
-
-        if ($i == 0) {
-            $flow = ($meters > $defaultMeter) 
-                    ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
-                    : (($meters < $defaultMeter) 
-                        ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
-                        : '<span class="material-symbols-rounded stable">stable</span>');
-        } else {
-            $nextMeters = $rows[$i + 1]['meters'] ?? $defaultMeter;
-            $flow = ($meters > $nextMeters) 
-                    ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
-                    : (($meters < $nextMeters) 
-                        ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
-                        : '<span class="material-symbols-rounded stable">stable</span>');
-        }
-
+        $nextMeters = $rows[$i + 1]['meters'] ?? $defaultMeter;
+        $flow = ($meters > $nextMeters) 
+            ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
+            : (($meters < $nextMeters) 
+                ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
+                : '<span class="material-symbols-rounded stable">stable</span>');
 
         $alertMapping = [
             "NORMAL LEVEL" => "NORMAL",
@@ -141,7 +133,7 @@ if ($result->num_rows > 0) {
                 <td>{$time}</td>
                 <td>{$status}</td>
                 <td>{$meters} m</td>
-                <td>{$speed} m/min</td>
+                <td>{$rate} m/min</td>
                 <td>{$flow}</td>
                 <td>{$mappedAlertLevel}</td>
                 <td><button onclick='openModal()' {$disabled}>REVIEW ALERT</button></td>
@@ -151,14 +143,55 @@ if ($result->num_rows > 0) {
     echo '</tbody>';
     echo '</table>';
 } else {
-    echo "No data available.";
+    echo "<p>No data available.</p>";
 }
-
-$conn->close();
 ?>
 
+<p>RECENT VERIFIED FLOOD ALERTS</p>
+<?php 
+$sql_verified_alerts = "SELECT * FROM flood_alerts WHERE alert_status = 'Verified'";
+$result_verified_alerts = $conn->query($sql_verified_alerts);
 
+echo '<table border="1">';
+echo '<thead>
+        <tr>
+            <th>Flood Alert ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Water Level</th>
+            <th>Flow</th>
+            <th>Height</th>
+            <th>Height Rate</th>
+            <th>SMS Status</th>
+            <th>SMS Status Reason</th>
+            <th>Action</th>
+        </tr>
+      </thead>';
+echo '<tbody>';
 
+if ($result_verified_alerts->num_rows > 0) {
+    while ($row = $result_verified_alerts->fetch_assoc()) {
+        echo '<tr>
+                <td>' . htmlspecialchars($row["flood_alert_id"]) . '</td>
+                <td>' . htmlspecialchars($row["date"]) . '</td>
+                <td>' . htmlspecialchars($row["time"]) . '</td>
+                <td>' . htmlspecialchars($row["water_level"]) . '</td>
+                <td>' . htmlspecialchars($row["flow"]) . '</td>
+                <td>' . htmlspecialchars($row["height"]) . '</td>
+                <td>' . htmlspecialchars($row["height_rate"]) . '</td>
+                <td>' . htmlspecialchars($row["sms_status"]) . '</td>
+                <td>' . htmlspecialchars($row["sms_status_reason"]) . '</td>
+                <td><button>VIEW</button></td>
+              </tr>';
+    }
+} else {
+    echo '<tr><td colspan="10" style="text-align: center;">No records found</td></tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+$conn->close();
+?>
 
 
 
@@ -185,24 +218,20 @@ $conn->close();
             </thead>
             <tbody id="summaryTableBody">
                 <?php
-                if ($result->num_rows > 0) {
-                    foreach ($rows as $row) {
-                        $id = $row['id']; 
-                        echo "<tr id='row_{$id}'>
-                                <td>{$id}</td>
-                                <td id='status_{$id}'></td>
-                                <td id='sms_{$id}'></td>
-                                <td id='sms_reason_{$id}'></td>
-                              </tr>";
-                    }
+                foreach ($rows as $row) {
+                    $id = $row['id'];
+                    echo "<tr id='row_{$id}'>
+                            <td>{$id}</td>
+                            <td id='status_{$id}'></td>
+                            <td id='sms_{$id}'></td>
+                            <td id='sms_reason_{$id}'></td>
+                          </tr>";
                 }
                 ?>
             </tbody>
         </table>
-                <button>Cancel</button>
-                <button>Confirm</button>
-
-
+        <button onclick="closeModal()">Cancel</button>
+        <button id="confirmBtn" onclick="confirmAction()" disabled>Confirm</button>
 
         <p>VERIFY THE FLOOD ALERT(S) BELOW:</p>
         <table>
@@ -220,72 +249,61 @@ $conn->close();
                 </tr>
             </thead>
             <tbody>
+                <?php
+                foreach ($rows as $index => $row) {
+                    $id = $row['id'];
+                    $timestamp = $row['timestamp'];
+                    $meters = $row['meters'];
+                    $rate = $row['rate'];
+                    $alert_level = $row['alert_level'];
+                    $status = $row['status'];
+                    $date = date("m/d/Y", strtotime($timestamp));
+                    $time = date("g:i:s A", strtotime($timestamp));
 
-<?php
-if ($result->num_rows > 0) {
+                    $flow = ($index == 0)
+                        ? (($meters > $defaultMeter) 
+                            ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
+                            : (($meters < $defaultMeter) 
+                                ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
+                                : '<span class="material-symbols-rounded stable">stable</span>'))
+                        : (($meters > ($rows[$index + 1]['meters'] ?? $defaultMeter)) 
+                            ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
+                            : (($meters < ($rows[$index + 1]['meters'] ?? $defaultMeter)) 
+                                ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
+                                : '<span class="material-symbols-rounded stable">stable</span>'));
 
-    foreach ($rows as $index => $row) {  
-        $id = $row['id'];
-        $timestamp = $row['timestamp'];
-        $meters = $row['meters'];
-        $speed = $row['speed'];
-        $alert_level = $row['alert_level'];
-        $status = $row['status'];
-        $date = date("m/d/Y", strtotime($timestamp));
-        $time = date("g:i:s A", strtotime($timestamp));
+                    $alertMapping = [
+                        "NORMAL LEVEL" => "NORMAL",
+                        "LOW LEVEL" => "LOW",
+                        "MEDIUM LEVEL" => "MODERATE",
+                        "CRITICAL LEVEL" => "CRITICAL"
+                    ];
+                    $mappedAlertLevel = $alertMapping[$alert_level] ?? $alert_level;
 
-
-        if ($index == 0) {
-
-            $flow = ($meters > $defaultMeter) 
-                    ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
-                    : (($meters < $defaultMeter) 
-                        ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
-                        : '<span class="material-symbols-rounded stable">stable</span>');
-        } else {
-
-            $nextMeters = $rows[$index + 1]['meters'] ?? $defaultMeter;
-            $flow = ($meters > $nextMeters) 
-                    ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
-                    : (($meters < $nextMeters) 
-                        ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
-                        : '<span class="material-symbols-rounded stable">stable</span>');
-        }
-
-
-        $alertMapping = [
-            "NORMAL LEVEL" => "NORMAL",
-            "LOW LEVEL" => "LOW",
-            "MEDIUM LEVEL" => "MODERATE",
-            "CRITICAL LEVEL" => "CRITICAL"
-        ];
-        $mappedAlertLevel = isset($alertMapping[$alert_level]) ? $alertMapping[$alert_level] : $alert_level;
-
-
-        echo "<tr>
-                <td>{$id}</td>
-                <td>{$date}</td>
-                <td>{$time}</td>
-                <td>{$status}</td>
-                <td>{$meters} m</td>
-                <td>{$speed} m/min</td>
-                <td>{$flow}</td>
-                <td>{$mappedAlertLevel}</td>
-                <td>
-                    <button id='falseAlarmBtn_{$id}' onclick='toggleFalseAlarm({$id})'>False Alarm</button>
-                    <button id='verifyBtn_{$id}' onclick='verifyAlert({$id})'>Verified</button>
-                </td>
-              </tr>";
-    }
-}
-?>
-
+                    echo "<tr>
+                            <td>{$id}</td>
+                            <td>{$date}</td>
+                            <td>{$time}</td>
+                            <td>{$status}</td>
+                            <td>{$meters} m</td>
+                            <td>{$rate} m/min</td>
+                            <td>{$flow}</td>
+                            <td>{$mappedAlertLevel}</td>
+                            <td>
+                                <button id='falseAlarmBtn_{$id}' onclick='toggleFalseAlarm({$id})'>False Alarm</button>
+                                <button id='verifyBtn_{$id}' onclick='verifyAlert({$id})'>Verified</button>
+                            </td>
+                          </tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
 </div>
+
 <script>
     const modal = document.getElementById('alertModal');
+    const confirmButton = document.getElementById('confirmBtn');
 
     function openModal() {
         modal.style.display = 'flex';
@@ -294,26 +312,24 @@ if ($result->num_rows > 0) {
     function closeModal() {
         const buttons = document.querySelectorAll('button');
         buttons.forEach(button => {
-            button.classList.remove('clicked'); 
+            button.classList.remove('clicked');
         });
-
 
         const statusCells = document.querySelectorAll('[id^="status_"]');
         const smsStatusCells = document.querySelectorAll('[id^="sms_"]');
         const smsReasonCells = document.querySelectorAll('[id^="sms_reason_"]');
-        
+
         statusCells.forEach(cell => cell.innerText = '');
         smsStatusCells.forEach(cell => cell.innerText = '');
         smsReasonCells.forEach(cell => cell.innerText = '');
 
-        modal.style.display = 'none'; 
+        modal.style.display = 'none';
+        confirmButton.disabled = true; 
     }
-
 
     function toggleFalseAlarm(id) {
         const falseAlarmButton = document.getElementById('falseAlarmBtn_' + id);
         const verifyButton = document.getElementById('verifyBtn_' + id);  
-
 
         if (!falseAlarmButton.classList.contains('clicked')) {
             falseAlarmButton.classList.add('clicked');
@@ -323,6 +339,8 @@ if ($result->num_rows > 0) {
             falseAlarmButton.classList.remove('clicked');
             updateStatus(id, '', '', '');
         }
+
+        checkConfirmButtonState(); 
     }
 
     function updateStatus(id, status, smsStatus, smsReason) {
@@ -333,7 +351,21 @@ if ($result->num_rows > 0) {
         statusCell.innerText = status;
         smsStatusCell.innerText = smsStatus;
         smsReasonCell.innerText = smsReason;
+
+        checkConfirmButtonState(); 
     }
+
+    function checkConfirmButtonState() {
+        const statusCells = document.querySelectorAll('[id^="status_"]');
+        const smsStatusCells = document.querySelectorAll('[id^="sms_"]');
+        const smsReasonCells = document.querySelectorAll('[id^="sms_reason_"]');
+        const allFilled = [...statusCells, ...smsStatusCells, ...smsReasonCells].every(cell => cell.innerText.trim() !== '');
+        confirmButton.disabled = !allFilled;
+    }
+
+
+
+
 </script>
 
 
