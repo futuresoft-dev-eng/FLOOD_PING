@@ -177,12 +177,12 @@ $conn->close();
         }
      
         .title-container h3 {
-            width: 1220px;
+            width: 1340px;
             height: 50px;
             background-color: #4597C0;
             color: #FFFFFF;
             font-size: 20px;
-            margin: 80px 0px 0px 50px;
+            margin: 80px 0px 0px 80px;
             position: a-zA-Z0-9;
             text-transform: uppercase;
             padding: 10px;
@@ -201,7 +201,7 @@ $conn->close();
             cursor: pointer;
             text-decoration: none; 
             z-index: 100;
-            margin: 20px 0px 0px 220px;
+            margin: 20px 0px 0px 250px;
             position: absolute;
         }   
 
@@ -216,7 +216,7 @@ $conn->close();
         
         .profile-info {
             width: 70%;
-            margin: 60px 0px 0px -230px !important;
+            margin: 60px 0px 0px -210px !important;
             position: absolute;
 
         }
@@ -233,12 +233,12 @@ $conn->close();
         .info-group {
             margin: 0px 0px 0px 300px;
             position: absolute;
-            width: 90%;
+            width: 95%;
         }
 
         .info-item-id  {
             width: 120px;
-            margin: 50px 0px 0px 930px;
+            margin: 50px 0px 0px 1070px;
             position: absolute;
             font-size: 14px;
         }
@@ -256,12 +256,11 @@ $conn->close();
 
         #userID-title {
             width: 100%;
-            margin: 122px 0px 0px 130px;
+            margin: 122px 0px 0px 150px;
             position: absolute;
             font-size: 15px;
             color: black;
         }
-
 
         #address-title {
             position: absolute;
@@ -302,7 +301,7 @@ $conn->close();
             border-radius: 5px;
             color: #FFFF;     
             text-transform: uppercase;
-            margin: 345px 0px 0px 500px;
+            margin: 345px 0px 0px 590px;
             position: absolute;
         }
 
@@ -329,7 +328,7 @@ $conn->close();
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 60px 0px 0px 250px;
+            margin: 60px 0px 0px 410px;
             position: absolute;
         }
 
@@ -854,7 +853,5 @@ document.querySelectorAll('input[required], select[required], textarea[required]
     }
 }
 </script>
-
-
 </body>
 </html>
