@@ -34,13 +34,10 @@
         }
 
         .main-content {
-            margin-left: 250px; 
+            margin-left: 100px; 
             padding: 20px;
-            flex-grow: 1;
             min-height: 100vh;
-            background-color: #f8f9fa;
-            box-sizing: border-box;
-            overflow-y: auto; 
+
 
         }
 
