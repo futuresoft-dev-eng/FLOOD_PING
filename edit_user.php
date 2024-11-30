@@ -422,13 +422,13 @@ include 'adminsidebar.php';
         }
         
         .modal-archive { 
-            width: 35%;
-            height: 600px;
+            width: 32%;
+            height: 620px;
             background-color: transparent; 
             justify-content: center;
             align-items: center;
-            margin-top: -700px;
-            margin-left: 300px;
+            margin-top: -580px;
+            margin-left: 350px;
             position: fixed;
         }
 
@@ -450,14 +450,14 @@ include 'adminsidebar.php';
             width: 55%;
             font-size: 15px;
             text-align: center;
-            margin: 30px 0px 0px 140px;
+            margin: 20px 0px 0px 140px;
             position: absolute;
         }
 
         #archive-modal-content p {
             width: 75%;
             font-size: 13px;
-            margin: 100px 0px 0px 75px;
+            margin: 95px 0px 0px 75px;
             position: absolute;
             text-align: center;
         }
@@ -465,7 +465,7 @@ include 'adminsidebar.php';
         .warning-sign {
             width: 90px;
             height: auto;
-            margin: 0px 0px 0px 40px !important;
+            margin: -5px 0px 0px 40px !important;
             position: absolute;
         }
 
@@ -476,7 +476,7 @@ include 'adminsidebar.php';
             padding: 8px 20px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 170px 0px 0px 120px;
+            margin: 160px 0px 0px 140px;
             width: 130px;
             font-size: 12px;
             text-transform: uppercase;
@@ -489,7 +489,7 @@ include 'adminsidebar.php';
             padding: 8px 20px;
             border-radius: 5px;
             cursor: pointer;
-            margin: -35px 0px 0px 270px;
+            margin: -35px 0px 0px 290px;
             width: 130px;
             font-size: 12px;
             text-transform: uppercase;
