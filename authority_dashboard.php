@@ -209,7 +209,7 @@
             <div class="right-section">
                 <div class="titlee">Flood Height Point Graph</div>
                 <img src="./images/floodgraph.png" alt="Flood Graph" style="width: 100%; height: auto;">
-                <div style="margin-top: 10px; font-size: 14px; color: gray;">Legend: Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
+                <div style="background-color: white; border-radius: 8px;   text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 50px; font-size: 14px; color: gray;"><b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
             </div>
         </div>
     </div>
