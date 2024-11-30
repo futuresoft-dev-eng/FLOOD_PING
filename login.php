@@ -479,7 +479,7 @@ button:hover {
 
           <!-- Forgot Password Link -->
     <div class="forgot-password">
-        <a href="forgot-password.php">Forgot your password?</a>
+        <a href="forgot_password.php">Forgot your password?</a>
     </div>
         <button type="submit">Log in</button>
 </div>
