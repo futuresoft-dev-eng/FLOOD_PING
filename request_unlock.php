@@ -245,7 +245,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             font-weight: 550;
             text-transform: uppercase;
             color: #02476A; 
-            margin: 65px 0px 0px 245px; 
+            margin: 65px 0px 0px 270px; 
             position: absolute;
         }
 
