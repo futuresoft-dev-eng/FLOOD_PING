@@ -295,8 +295,12 @@ h2 i {
     height: 95vh;
     padding: 0 15px;
     max-width: 1200px;
-    margin: 0px 0px 0px 0px !important;
     z-index: 10;
+}
+
+#content-about {
+    margin: 1000px;
+    position: absolute;
 }
 
 .abt-section .about {
@@ -403,28 +407,29 @@ h2 i {
 }
 
 #icon {
-    font-size: 20px; 
-    margin: 5px 0px 0px 0px;
+    font-size: 17px; 
+    margin: 0px 0px 0px 0px;
 }
+
 .icon-red {
     color: red;
-    font-size: 30px; 
+    font-size: 28px; 
     margin: 0px 0px 0px -20px;
 }
 
 .icon-blue {
     color: blue;
-    font-size: 30px;
+    font-size: 28px;
 }
 
 #loc-icon {
-    font-size: 30px;
+    font-size: 28px;
     color: red;
 }
 
 /* partnership section styles */
 .partnership-section {
-    margin: 1910px 0px 0px -0px;
+    margin: 1910px 0px 0px 0px;
     background-color: #F5F5F5;
     width: 100%;
     position: absolute;
@@ -433,7 +438,7 @@ h2 i {
 .brgylogo-image {
     width: 20% !important;
     height: 17%;
-    margin: 0px -30px 0px 470px;
+    margin: 0px -30px 0px 540px;
 }
 
 .qculogo-image {
@@ -445,7 +450,7 @@ h2 i {
 .logo h2 {
     font-size: 25px;
     font-weight: bold;
-    margin: 0px 0px 30px 550px;
+    margin: 0px 0px 30px 650px;
 }
 
 #spacingTop {
@@ -472,13 +477,13 @@ h2 i {
     width: 100%;
     height: 300%;
     background-color: #F5F5F5 !important;
-    margin: 1700px 0px 0px -0px !important;
+    margin: 1850px 0px 0px -0px !important;
     position: absolute;
 }
 
 .map-image {
-    width: 50%;
-    margin: 1500px 0px 100px 190px !important;
+    width: 60%;
+    margin: 1520px 0px 100px 130px !important;
     border: 1px solid #000;
     border-radius: 3%;
     position: absolute;
@@ -493,7 +498,7 @@ h2 i {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     margin: 20px auto;         
     text-align: center;  
-    margin: 1600px 0px 0px 1090px;   
+    margin: 1750px 0px 0px 1250px;   
     position: absolute; 
     z-index: 10;;
 }
@@ -502,7 +507,7 @@ h2 i {
     background-color: #F5F5F5;
     width: 100%;
     height: 1000px;
-    margin: 1300px 0px 0px 0px;
+    margin: 1380px 0px 0px 0px;
 }
 
 .contact-form {
@@ -510,7 +515,7 @@ h2 i {
     border-radius: 10px;
     width: 100%;
     max-width: 600px;
-    margin: 150px 0px 0px 840px;
+    margin: 250px 0px 0px 1040px !important;
     position: absolute;
 }
 
@@ -580,9 +585,9 @@ h2 i {
 }
 
 .contact-map {
-    max-width: 70% !important;
+    max-width: 80% !important;
     height: 80% !important;
-    margin: -840px 0px 0px 120px !important;
+    margin: -750px 0px 0px 150px !important;
     position: absolute;
 }
 
@@ -599,8 +604,8 @@ h2 i {
     z-index: 100;
     left: 0;
     top: 0;
-    width: 20% !important;
-    height: 100%;
+    width: 550px !important;
+    height: 200px;
     overflow: auto;
     display: none;
     justify-content: center;
@@ -612,31 +617,37 @@ h2 i {
 /* modal content box */
 .modal-content {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 8px !important;
     padding: 20px;
     text-align: center;
-    width: 300px;
+    width: 485px !important;
+    height: 190px;
     position: relative;
     font-size: 12px;
     text-align: justify;
+    border: 2px solid #ccc;
 }
 
 .modal-content h2 {
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
+    margin: 20px 0px 0px 90px;
 }
 
-/* close icon */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #aaa;
-    font-size: 24px;
-    cursor: pointer;
+.modal-content p {
+    font-size: 14px;
+    margin: 10px 0px 0px 135px;
 }
-  
-/* oK Button */
+
+/* email icon */
+.email-photo {
+    width: 120px;
+    height: auto;
+    margin: 0px 0px 0px 0px !important;
+    position: absolute;
+}
+ 
+/* ok button */
 button#okButton {
     background-color: #02476A;
     color: white;
@@ -644,8 +655,11 @@ button#okButton {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 30px 0px 0px 170px;
+    width: 170px;
+    font-size: 12px;
 }
-  
+
 button#okButton:hover {
     background-color: #02476A;
 }
@@ -725,7 +739,7 @@ button#okButton:hover {
 }
 
 .footer-bottom {
-    margin: -36px 0px -20px 500px;
+    margin: -36px 0px -20px 560px;
     position: absolute;
 }
 .footer-links .faq {
