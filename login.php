@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['full_name'] = $user['first_name'] . ' ' . $user['last_name'];
                     $_SESSION['role'] = $user['role'];
                     if ($user['role'] === 'Admin') {
-                        header("Location: admindashboard.php");
+                        header("Location: admin_dashboard.php");
                     } else if ($user['role'] === 'Local Authority') {
                         header("Location: authority_dashboard.php");
                     }
@@ -128,7 +128,7 @@ body {
 }
 
 .FPlogo-image {
-    width: 3.3%;
+    width: 3%;
     height: 83%;
     margin: 0px 0px 0px -59px;
     position: absolute;
@@ -185,7 +185,7 @@ body {
     width: 500px;
     height: 500px;
     border-radius: 24px;
-    margin: 150px 0px 0px 850px;
+    margin: 150px 0px 0px 950px;
 }
 
 .login-container h3 {
@@ -269,7 +269,7 @@ button {
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
-    margin: 50px 15px 0px 23px;
+    margin: 70px 15px 0px 23px;
     border: 1px solid #02476A;
 }
 
@@ -316,20 +316,91 @@ button:hover {
 
 .footer {
     background-color: #1D4D7B; 
-    color: #fff; 
+    color: white !important; 
     width: 100%;
     height: 7%;
     padding: 5px 55px;
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 200px 0px 0px 0px;
+    margin: 280px 0px 0px 0px;
     position: absolute;
 }
 
 .footer-bottom {
-    margin: 10px 0px -20px 630px;
+    margin: 10px 0px 0px 700px !important;
     position: absolute;
+    color: white !important;
 }
+
+/* Modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: none;
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    height: auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 87px;
+    right: 75px;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal h2 {
+    color: #e74c3c;
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+  }
+
+  .forgot-password {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 160px;
+    position: absolute;
+  }
+
+  .forgot-password a {
+    color: #02476A;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
 
 /* Responsive breakpoints */
 @media screen and (max-width: 768px) {
@@ -372,10 +443,10 @@ button:hover {
         <img class="FPlogo-image" src="images/FloodPingLogo.png" alt="Description of the image">  
             <h2 class="logo">Floodping</h2>
             <ul class="links">
-                <li><a href="index.php">HOME</a></li>
+                <li><a href="landingpage.php">HOME</a></li>
                 <li><a href="#">LIVESTREAM</a></li>
-                <li><a href="#emergency">ABOUT</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="about.php">ABOUT</a></li>
+                <li><a href="contact.php">CONTACT</a></li>
             </ul>
             <div class="buttons">
                 <a href="login.php" class="signin" onclick="window.location.href='login'">LOG IN</a>
@@ -403,18 +474,36 @@ button:hover {
     <div class="icon-wrapper">
         <i class="fas fa-lock"></i> <!-- Lock icon -->
     </div>
+    
         <input type="password" name="password" required placeholder="Password"><br>
+
+          <!-- Forgot Password Link -->
+    <div class="forgot-password">
+        <a href="forgot-password.php">Forgot your password?</a>
+    </div>
         <button type="submit">Log in</button>
+</div>
     </form>
+
+    <!-- Modal HTML -->
+<div class="modal" id="errorModal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <h2>Login Error</h2>
+    <p>
     <?php if ($error): ?>
         <p style="color: red;"><?= $error ?></p>
     <?php endif; ?>
+
+    </p>
+  </div>
 </div>
 
+    
   <!-- footer -->
 <footer class="footer">
     <div class="footer-bottom">
-        <p>© 2024 Quezon City University</p>
+        <p style="color: white !important;">© 2024 Quezon City University</p>
     </div>
 </footer>
 
@@ -461,7 +550,28 @@ button:hover {
     setInterval(updateDateTime, 60000);
 </script>
 
+<script>
+  // Show the modal if there's an error
+  window.onload = function() {
+    var errorMessage = '<?php echo $error; ?>';
+    if (errorMessage) {
+      document.getElementById('errorModal').style.display = 'block';
+    }
+  }
 
+  // Close the modal when the user clicks on the "x" button
+  document.getElementById('closeModal').onclick = function() {
+    document.getElementById('errorModal').style.display = 'none';
+  }
+
+  // Close the modal if the user clicks outside of the modal
+  window.onclick = function(event) {
+    var modal = document.getElementById('errorModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>
 </body>
 </html>
 
