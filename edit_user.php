@@ -3,7 +3,7 @@
 session_start(); 
 include 'update_user.php'; 
 include 'db_conn.php';
-include 'adminsidebar.php';
+include 'adminsidebar-accountservices.php';
 ?>
 
 <!DOCTYPE html>
@@ -683,14 +683,6 @@ include 'adminsidebar.php';
         <button onclick="closeModal('unlockModal')">NO</button>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 <form method="POST" action="archive_account.php" id="archiveForm">
     <button type="button" id="archiveButton" name="archive" value="<?= htmlspecialchars($user['user_id']) ?>">ARCHIVE</button>
