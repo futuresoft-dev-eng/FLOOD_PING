@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($failedAttempts >= 4) {
                         $updateStmt = $conn->prepare("UPDATE users SET failed_attempts = ?, account_status = 'Locked', last_attempt_date = ?, last_attempt_time = ? WHERE email = ?");
                         $updateStmt->bind_param("isss", $failedAttempts, $current_date, $current_time, $email);
-                        $error = "Too many failed attempts. Your account is now locked. Contact the admin to unlock it.";
+                        $error = "Too many failed attempts. Your account is now locked. <a href='unlock_account.php?email=$email'>Click here</a> to unlock your profile.";
                     } else {
                         $updateStmt = $conn->prepare("UPDATE users SET failed_attempts = ?, last_attempt_date = ?, last_attempt_time = ? WHERE email = ?");
                         $updateStmt->bind_param("isss", $failedAttempts, $current_date, $current_time, $email);
@@ -337,8 +337,8 @@ button:hover {
     display: none; 
     position: fixed; 
     z-index: 1; 
-    left: 0;
-    top: 0;
+    left: 200px;
+    top: 200px;
     width: 100%; 
     height: 100%; 
     background-color: none;
@@ -362,8 +362,8 @@ button:hover {
     font-size: 28px;
     font-weight: bold;
     position: absolute;
-    top: 87px;
-    right: 75px;
+    top: 150px;
+    right: 620px;
     cursor: pointer;
   }
 
