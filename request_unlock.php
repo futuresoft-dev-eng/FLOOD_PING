@@ -83,7 +83,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
         }
 
         .FPlogo-image {
-            width: 3.3%;
+            width: 3%;
             height: 83%;
             margin: 0px 0px 0px -59px;
             position: absolute;
