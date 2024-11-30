@@ -319,7 +319,7 @@ include 'adminsidebar.php';
             border-radius: 5px;
             color: #FFFFFF;
             text-transform: uppercase;
-            margin: 435px 0px 0px 190px;
+            margin: 435px 0px 0px 240px;
             position: absolute;
         }
 
@@ -571,13 +571,13 @@ include 'adminsidebar.php';
     <label>Sex</label><br>
     <div class="sex-option">
     <input type="radio" name="sex" id="male-sex" value="Male" 
-       style="margin: -0px 0px 0px -455px; position: absolute;" 
+       style="margin: -0px 0px 0px -535px; position: absolute;" 
        <?= ($user['sex'] === 'Male') ? 'checked' : '' ?>>
 <label for="male-sex" style="margin-left: 40px; font-weight: 500; font-size: 14px;">Male</label><br>
 
 
     <input type="radio" name="sex" id="female-sex" value="Female" 
-       style="margin: -0px 0px 0px -385px; position: absolute;" 
+       style="margin: -0px 0px 0px -465px; position: absolute;" 
        <?= ($user['sex'] === 'Female') ? 'checked' : '' ?>>
 <label for="female-sex" style="margin: -0px 0px 0px 110px; font-weight: 500; font-size: 14px; position: absolute;">Female</label><br><br>
 </div>
