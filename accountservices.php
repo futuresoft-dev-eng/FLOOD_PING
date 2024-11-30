@@ -1,9 +1,9 @@
 
 <?php
 include 'db_conn.php';
-include 'adminsidebar.php';
-?>
+include 'adminsidebar-accountservices.php';
 
+?>
 <title>Residents List</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
@@ -11,7 +11,8 @@ include 'adminsidebar.php';
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <style>
     .main-content {
-        margin-left: 30px; padding: 20px;
+        margin-left: 30px; 
+        padding: 20px;
     }
 
     .container {
@@ -30,7 +31,7 @@ include 'adminsidebar.php';
         padding: 20px;
         border-radius: 5px;
         border: 1px solid #F6F6F6;
-        margin-top: 30px;
+        margin-top: 75px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         max-width: 100%;
         margin-left: 156px;
@@ -47,7 +48,8 @@ include 'adminsidebar.php';
         align-items: center;
         margin-top: -40px !important;
         position: relative;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        top: 10px;
     }
 
     .dataTables_filter input {
@@ -218,14 +220,14 @@ include 'adminsidebar.php';
         display: flex;
         margin: 20px 0;
         position: absolute;
-        top: 87px;
-        left: 275px;
+        top: 130px;
+        left: 288px;
         border-radius: none !important;
     }
 
     .navigation-btn {
-        min-width: 611px;
-        height: 40px;
+        min-width: 456px;
+        height: 50px;
         background-color: #FFFFFF;
         color: #02476A;
         border: 1px solid #ccc;
@@ -234,12 +236,12 @@ include 'adminsidebar.php';
         border-bottom-left-radius: 0px;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
-        font-size: 14px;
+        font-size: 16px;
         text-transform: uppercase;
         cursor: pointer;
         text-transform: uppercase;
         transition: background-color 0.3s ease;
-        margin-left: 12px;
+        margin-left: 0px;
     }
 
     .navigation-btn.active {
@@ -253,11 +255,16 @@ include 'adminsidebar.php';
     }
 
     #residentsBtn {
+        background-color: #FFFFFF;
+        color: #02476A;
+        border: 1px solid #ccc;
+    }
+
+    #archiveBtn {
         border-top-right-radius: 10px; 
         background-color: #FFFFFF;
         color: #02476A;
         border: 1px solid #ccc;
-        margin-left: -20px;
     }
 
  /* Responsive */
@@ -277,14 +284,16 @@ include 'adminsidebar.php';
     <div class="title">
     <h3>RESIDENT MANAGEMENT</h3>
 </div>
+<hr style="color: gray; width: 90%; position: absolute; margin: 30px 0px 0px 40px;">
 
 <div class="buttons-container">
     <button class="navigation-btn" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'add_user.php')">User Accounts</button>
     <button class="navigation-btn active" id="residentsBtn" onclick="activateButton('residentsBtn', 'accountservices.php')">Resident List</button>
+    <button class="navigation-btn" id="archiveBtn" onclick="activateButton('residentsBtn', 'archive_account.php')">Archive</button>
 </div>
 
     <div class="container">
-        <form id="importForm" action="import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
+        <form id="importForm" action="/floodping/ADMIN/import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
             <input type="file" name="file" id="fileInput" accept=".xls, .xlsx" required>
         </form>
         
@@ -422,7 +431,7 @@ if (isset($_GET['delete_status'])) {
                             echo "<td>{$residentRow['suffix']}</td>";
                             echo "<td>{$residentRow['mobile_number']}</td>";
                             echo "<td>" . ($residentRow['account_status'] ?? 'Unknown') . "</td>";
-                            echo "<td><a href='viewresident.php?resident_id={$residentRow['resident_id']}' class='view-btn'><span class='material-symbols-rounded'>visibility</span>VIEW</a></td>";
+                            echo "<td><a href='/floodping/ADMIN/viewresident.php?resident_id={$residentRow['resident_id']}' class='view-btn'><span class='material-symbols-rounded'>visibility</span>VIEW</a></td>";
                             echo "</tr>";
                         }
                     } else {
@@ -437,7 +446,7 @@ if (isset($_GET['delete_status'])) {
             <span id="selectedCount" class="selected-count">0 Selected</span>
 
              <!-- Export Data -->
-             <a href="export_residents.php" class="export-btn disabled">
+             <a href="/floodping/ADMIN/export_residents.php" class="export-btn disabled">
              <span class="material-symbols-rounded">download</span> EXPORT
             </a>
 
@@ -450,7 +459,7 @@ if (isset($_GET['delete_status'])) {
         <button id="reactivateSelectedBtn" class="status-btn reactivate-btn">
             <span class="material-symbols-rounded">notifications_active</span> REACTIVATE
         </button>
-            <form id="statusUpdateForm" action="updateresidents_status.php" method="POST" style="display: none;">
+            <form id="statusUpdateForm" action="/floodping/ADMIN/updateresidents_status.php" method="POST" style="display: none;">
                 <input type="hidden" name="selected_residents" id="statusResidentsInput">
                 <input type="hidden" name="action" id="statusActionInput">
             </form>
@@ -460,7 +469,7 @@ if (isset($_GET['delete_status'])) {
                 <span class="material-symbols-rounded">delete</span> DELETE
             </button>
             </div>
-            <form id="deleteForm" action="delete_residents.php" method="POST" style="display: none;">
+            <form id="deleteForm" action="/floodping/ADMIN/delete_residents.php" method="POST" style="display: none;">
                 <input type="hidden" name="selected_residents" id="selectedResidentsInput">
             </form>
     </div>
@@ -482,7 +491,7 @@ $(document).ready(function () {
     if (!$('.import-btn').length) {
         $("div.dataTables_filter").prepend(`
         <!-- Create New Resident -->
-            <a href="addresident.php" class="create-btn">
+            <a href="/floodping/ADMIN/addresident.php" class="create-btn">
                 <span class="material-symbols-rounded">add</span> CREATE NEW
             </a>
             <button type="button" class="import-btn">
