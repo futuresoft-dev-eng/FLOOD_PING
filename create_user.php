@@ -170,19 +170,19 @@ $conn->close();
         .container { 
             max-width: 100%; 
             height: 130vh !important;
-            margin: 0 0px 0px -40px; 
+            margin: 0 0px 0px 150px; 
             padding: 20px;
             font-family: Poppins; 
             background-color: #FFFFFF !important; 
         }
      
         .title-container h3 {
-            width: 1220px;
+            width: 1340px;
             height: 50px;
             background-color: #4597C0;
             color: #FFFFFF;
             font-size: 20px;
-            margin: 80px 0px 0px 0px;
+            margin: 80px 0px 0px 80px;
             position: a-zA-Z0-9;
             text-transform: uppercase;
             padding: 10px;
@@ -201,7 +201,7 @@ $conn->close();
             cursor: pointer;
             text-decoration: none; 
             z-index: 100;
-            margin: 20px 0px 0px -17px;
+            margin: 20px 0px 0px 250px;
             position: absolute;
         }   
 
@@ -216,7 +216,7 @@ $conn->close();
         
         .profile-info {
             width: 70%;
-            margin: 60px 0px 0px -290px !important;
+            margin: 60px 0px 0px -210px !important;
             position: absolute;
 
         }
@@ -233,44 +233,40 @@ $conn->close();
         .info-group {
             margin: 0px 0px 0px 300px;
             position: absolute;
-            width: 90%;
+            width: 95%;
         }
+
         .info-item-id  {
-            width: 130px;
-            margin: 80px 0px 0px 940px;
+            width: 120px;
+            margin: 50px 0px 0px 1070px;
             position: absolute;
             font-size: 14px;
         }
 
         .info-item-id input  {
-            width: 130px;
+            width: 140px;
             height: 35px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin: 80px 0px 0px 100px;
+            margin: 70px 0px 0px 100px;
             position: absolute;
             font-size: 14px;
+            background-color: #F0F0F0 !important;
         }
 
         #userID-title {
             width: 100%;
-            margin: 122px 0px 0px 130px;
+            margin: 122px 0px 0px 150px;
             position: absolute;
             font-size: 15px;
             color: black;
         }
-
 
         #address-title {
             position: absolute;
             margin-top: -20px;
         }
 
-        #address {
-            margin: 25px 0px 0px -0px;
-            width: 100%; 
-            padding: 0px; 
-        }
 
         .profile-info h3 {
             margin: 0px 0px 0px 300px;
@@ -279,8 +275,19 @@ $conn->close();
 
         }
 
+        #personal {
+            margin-top: -20px;
+            position: relative;
+        }
+
+        #address {
+            margin-top: -20px;
+            position: relative;
+        }
+
         #position {
-            margin: 40px 0px 0px -0px;
+           margin-top: 0px;
+           position: relative;
         }
 
         .profile-info hr {
@@ -290,13 +297,11 @@ $conn->close();
         #createUserButton {
             font-size: 18px;
             width: 17%;
-            height: 9%;
-            padding: 8px auto;
+            height: 10.5%;
             border-radius: 5px;
-            color: #FFFF;
-            background-color: #59C447;
+            color: #FFFF;     
             text-transform: uppercase;
-            margin: 420px 0px 0px 500px;
+            margin: 345px 0px 0px 590px;
             position: absolute;
         }
 
@@ -309,7 +314,7 @@ $conn->close();
             color: white; 
             cursor: pointer;
             font-weight: normal;
-            margin: -65px 0px 0px 170px; 
+            margin: -65px 0px 0px 380px; 
             padding: 50px;
             position: absolute;
             min-width: 1000px !important;
@@ -318,17 +323,17 @@ $conn->close();
         #profilePreview {
             text-align: center; 
             cursor: pointer;
-            width: 200px; 
-            height: 150px; 
+            width: 140px; 
+            height: 140px; 
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 100px 0px 0px 160px;
+            margin: 60px 0px 0px 410px;
             position: absolute;
         }
 
         #upload-icon {
-            margin: -20px 0px 0px 180px;
+            margin: -20px 0px 0px 390px;
             position: absolute;
             color: white;
             font-size: 30px;
@@ -342,7 +347,8 @@ $conn->close();
 
         #personal-info-title {
             margin-top: -50px;
-            width: 100%;
+            width: 1000px !important;
+            position: absolute;
         }
 
         .info-group { 
@@ -499,12 +505,28 @@ $conn->close();
             background-color: #59C447;
             color: white;
         }
+   
+        .createt-btn:disabled {
+            background-color: #d3d3d3; 
+            color: #a0a0a0; 
+            border: 1px solid #a0a0a0; 
+            cursor: not-allowed; 
+        }
+
+        .createt-btn {
+            background-color: #4CAF50; 
+            color: white;
+            border: none;
+            padding: 5px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
 
 <body>
 <div class="header">
-<a href="http://localhost/floodping/ADMIN/accountservices.php" class="back-button">
+<a href="add_user.php" class="back-button">
 <span class="material-symbols-rounded">arrow_back</span>
 </a>    
 <hr style="color: #ccc; width: 90%; position: absolute; margin: 70px 0px 0px -20px;">
@@ -534,38 +556,38 @@ $conn->close();
         <br>
         </div>
 
-        <div class="info-item">
-        <p id="personal-info-title">Personal Information</p>
+        <div class="info-item" id="personal">
+        <p id="personal-info-title" style="margin: -30px 0px 5px -3px;">Personal Information</p>
         <label>First Name</label>
         <input type="text" name="first_name" required onkeypress="return noNumbers(event)" placeholder="First Name" oninput="capitalizeInput(event)">
         <br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
         <label>Middle Name (Optional)</label>
         <input type="text" name="middle_name" onkeypress="return noNumbers(event)" placeholder="Middle Name" oninput="capitalizeInput(event)">
         <br>
         </div>
 
-        <div class="info-item">
+        <div class="info-item" id="personal">
         <label>Last Name</label>
         <input type="text" name="last_name" required onkeypress="return noNumbers(event)" placeholder="Last Name" oninput="capitalizeInput(event)">
         <br>
         </div>
 
-        <div class="info-item">
+        <div class="info-item" id="personal">
         <label>Suffix (Optional)</label>
         <input type="text" name="suffix" onkeypress="return noNumbers(event)" placeholder="Jr Sr II III IV" oninput="capitalizeInput(event)">
         <br>
     </div>
     
-    <div class="info-item">
+    <div class="info-item" id="personal">
         <label>Contact No</label>
         <input type="text" name="contact_no" pattern="^\d{11}$" title="Contact number must be exactly 11 digits" required maxlength="11" onkeypress="return onlyNumbers(event)" placeholder="Contact Number">
         <br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
         <label>Sex</label>
         <div class="sex-option">
             <label><input type="radio" name="sex" value="Male" required> Male</label>
@@ -574,13 +596,13 @@ $conn->close();
         <br>
         </div>
 
-        <div class="info-item">
+        <div class="info-item" id="personal">
         <label>Birthdate</label>
         <input type="date" name="birthdate" required>
         <br>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
         <label>Email</label>
         <input 
         type="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" required placeholder="example@gmail.com" title="Please enter a valid Gmail address (e.g., example@gmail.com)" id="emailInput">
@@ -588,8 +610,8 @@ $conn->close();
         <span id="emailError" style="color:red; display:none; font-size: 10px; position: absolute;">Please follow the required format (e.g., example@gmail.com).</span>
     </div>
 
-    <div class="info-item">
-        <p id="address-title">Address</p>
+    <div class="info-item" id="address">
+        <p id="address-title" style="margin-top: -10px;">Address</p>
         <br>
         <label for="city">Municipality</label>
         <select name="city" required>
@@ -598,7 +620,7 @@ $conn->close();
         <br>
     </div>
 
-    <div class="info-item" id="address">
+    <div class="info-item" id="address" style="margin-top: 0px; position: relative;">
         <label for="barangay">Barangay</label>
         <select name="barangay" required>
             <option value="Bagbag">Bagbag</option>
@@ -606,19 +628,19 @@ $conn->close();
         <br>
     </div>
 
-    <div class="info-item" id="address">
+    <div class="info-item" id="address" style="margin-top: 0px; position: relative;">
         <label for="house_lot_number">House/Lot Number:</label>
         <input type="text" name="house_lot_number" required placeholder="House/Lot Number" oninput="capitalizeInput(event)">
         <br>
     </div>
     
-    <div class="info-item" id="address">
+    <div class="info-item" id="address" style="margin-top: 0px; position: relative;">
         <label for="street_subdivision_name">Street/Subdivision Name:</label>
         <input type="text" name="street_subdivision_name" required placeholder="Street/Subdivision Name" oninput="capitalizeInput(event)">
         </div>
     
-        <div class="info-item">
-        <p>Job Description</p>
+        <div class="info-item" id="position">
+        <p style="margin: -5px 0px 0px -3px;">Job Description</p>
         <label>Role</label>
         <select name="role" required>
             <option value="" disabled selected>Select Role</option>
@@ -628,7 +650,7 @@ $conn->close();
         <br>
         </div>
 
-        <div class="info-item" id="position">
+        <div class="info-item" id="position" style="margin-top: 25px; position: relative;">
         <label>Position</label>
         <select name="position" required>
             <option value="" disabled selected>Select Position</option>
@@ -636,7 +658,7 @@ $conn->close();
         </select>
         <br>
         </div>
-        <button id="createUserButton" type="button" onclick="showConfirmModal()" disabled>Create</button>
+        <button class="createt-btn" disabled id="createUserButton" type="button" onclick="showConfirmModal()" disabled>Create</button>
         <br><br><br>
     </form>
     </div>     
@@ -781,35 +803,41 @@ $conn->close();
 
 <script>// This script is for the checking of required fields, email, and button enable and disable.
     function checkForm() {
-        const form = document.getElementById('createUserForm');
-        const button = document.getElementById('createUserButton');
-        const requiredFields = form.querySelectorAll('[required]');
-        const emailInput = document.getElementById('emailInput');
-        const errorMessage = document.getElementById('emailError');
-        
-        let allFilled = true;
-        let emailValid = true;
-        requiredFields.forEach(function(field) {
-            if (!field.value || (field.type === 'radio' && !form.querySelector('input[name="'+field.name+'"]:checked'))) {
-                allFilled = false;
-            }
-        });
-
-        const pattern = new RegExp(emailInput.pattern);
-        if (!pattern.test(emailInput.value)) {
-            emailValid = false;
-            errorMessage.style.display = 'inline'; 
-        } else {
-            errorMessage.style.display = 'none'; 
+    const form = document.getElementById('createUserForm');
+    const button = document.getElementById('createUserButton');
+    const requiredFields = form.querySelectorAll('[required]');
+    const emailInput = document.getElementById('emailInput');
+    const errorMessage = document.getElementById('emailError');
+    
+    let allFilled = true;
+    let emailValid = true;
+    
+    // Check if all required fields are filled
+    requiredFields.forEach(function(field) {
+        if (!field.value || (field.type === 'radio' && !form.querySelector('input[name="'+field.name+'"]:checked'))) {
+            allFilled = false;
         }
-        button.disabled = !(allFilled && emailValid);
-    }
-
-    document.getElementById('emailInput').addEventListener('input', checkForm);
-    document.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(input) {
-        input.addEventListener('input', checkForm);
     });
 
+    // Validate email field
+    const pattern = new RegExp(emailInput.pattern);
+    if (!pattern.test(emailInput.value)) {
+        emailValid = false;
+        errorMessage.style.display = 'inline'; 
+    } else {
+        errorMessage.style.display = 'none'; 
+    }
+
+    // Enable button only if all required fields are filled and the email is valid
+    button.disabled = !(allFilled && emailValid);
+}
+
+document.getElementById('emailInput').addEventListener('input', checkForm);
+document.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(input) {
+    input.addEventListener('input', checkForm);
+});
+
+   
     function previewImage(event) {
     const fileInput = event.target;
     const preview = document.getElementById('profilePreview');
