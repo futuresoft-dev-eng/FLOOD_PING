@@ -190,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <style>
-
         .container { 
             max-width: 100%; 
             height: 130vh !important;
@@ -201,12 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
      
         .title-container h3 {
-            width: 1220px;
+            width: 1350px;
             height: 50px;
             background-color: #4597C0;
             color: #FFFFFF;
             font-size: 20px;
-            margin: 100px 0px 0px 70px;
+            margin: 80px 0px 0px 270px;
             position: a-zA-Z0-9;
             text-transform: uppercase;
             padding: 10px;
@@ -224,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         .profile-info {
             width: 70%;
-            margin: 50px 0px 0px -200px !important;
+            margin: 60px 0px 0px -20px !important;
             position: absolute;
         }
 
@@ -240,11 +239,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .info-group {
             margin: 0px 0px 0px 300px;
             position: absolute;
-            width: 90%;
+            width: 95%;
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 40px;
         }
+
         .info-item-id  {
             width: 130px;
-            margin: 50px 0px 0px 930px;
+            margin: 50px 0px 0px 1100px;
             position: absolute;
             font-size: 14px;
         }
@@ -270,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         #address-title {
             position: absolute;
-            margin-top: -20px;
+            margin-top: -10px;
         }
 
         #address {
@@ -330,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 60px 0px 0px 1120px;
+            margin: 60px 0px 0px 1470px;
             position: absolute;
         }
 
@@ -345,17 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
             flex: 1; 
             color: #02476A; 
             font-size: 17px; 
-        }
-
-        #personal-info-title {
-            margin-top: -50px;
-            width: 100%;
-        }
-
-        .info-group { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 40px; 
         }
 
         .info-item label { 
@@ -404,35 +396,35 @@ document.addEventListener('DOMContentLoaded', () => {
             color: #FFFF;
             background-color: #0073AC;
             text-transform: uppercase;
-            margin: 40px 0px 0px 930px;
+            margin: 40px 0px 0px 1235px;
             position: absolute;
         }
 
         #editButton {
             font-size: 14px;
             width: 20%;
-            height: 8%;
+            height: 10%;
             padding: 10px auto;
             border: none;
             border-radius: 4px;
             color: #FFFF;
             background-color: #084E71;
             text-transform: uppercase;
-            margin: -117px 0px 0px 990px;
+            margin: -128px 0px 0px 1100px;
             position: absolute;
         }
 
         #saveButton {
             font-size: 14px;
             width: 20%;
-            height: 8%;
+            height: 10%;
             padding: 10px auto;
             border: none;
             border-radius: 4px;
             color: #FFFF;
             background-color: #084E71;
             text-transform: uppercase;
-            margin: -117px 0px 0px 990px;
+            margin: -128px 0px 0px 1100px;
             position: absolute;
 
         }
@@ -446,12 +438,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         #job {
-            margin-top: 45px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        #personal {
+            margin-top: -10px;
             position: relative;
         }
 
         #brgy {
-            margin-top: 25px;
+            margin-top: 0px;
             position: relative;
         }
 
@@ -467,15 +464,71 @@ document.addEventListener('DOMContentLoaded', () => {
         #confirmModal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            width: auto;
+            height: 102%;
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+            margin-top: 300px;
+            margin-left: 650px;
+            position: fixed;
+            background: transparent;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: #fff; padding: 20px; border-radius: 8px;
-            text-align: center; width: 300px; margin: auto;
+            background-color: #fff;
+            border-radius: 8px !important;
+            padding: 20px;
+            text-align: center;
+            min-width: 480px !important;
+            height: 190px;
+            position: relative;
+            font-size: 12px;
+            text-align: justify;
+            border: 2px solid #ccc;
+        }
+
+        .modal-content h2 {
+            width: 55%;
+            font-size: 15px;
+            text-align: center;
+            margin: 30px 0px 0px 120px;
+            position: absolute;
+        }
+
+        .question-sign {
+            width: 85px;
+            height: auto;
+            margin: 0px 0px 0px 40px !important;
+            position: absolute;
+        }
+
+        button#yesbtn {
+            background-color: #EA3323;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 100px 0px 0px 100px;
+            width: 130px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        button#nobtn {
+            background-color: #4597C0;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: -35px 0px 0px 250px;
+            width: 130px;
+            font-size: 12px;
+            text-transform: uppercase;
         }
 
         .error-message {
@@ -557,72 +610,72 @@ document.addEventListener('DOMContentLoaded', () => {
         <label id="userID-title">Resident ID</label>
     <label>
         <input type="text" value="<?= htmlspecialchars($user['user_id']) ?>" readonly>
-    </label><br>
+    </label>
     <br>
     </div>
 
-    <div class="info-item">
-    <p id="personal-info-title">Personal Information</p>
+    <div class="info-item" id="personal">
+    <p id="personal-info-title" style="margin: -30px 0px 5px -3px;">Personal Information</p>
     <label>First Name
         <input type="text" value="<?= htmlspecialchars($user['first_name']) ?>" readonly>
-    </label><br>
+    </label>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Middle Name 
         <input type="text" value="<?= htmlspecialchars($user['middle_name']) ?>" readonly>
-    </label><br>
+    </label>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Last Name 
         <input type="text" value="<?= htmlspecialchars($user['last_name']) ?>" readonly>
-    </label><br>
+    </label>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Suffix
         <input type="text" value="<?= htmlspecialchars($user['suffix']) ?>" readonly>
-    </label><br>
+    </label>
     </div>
     
-    <div class="info-item">
-    <label>Sex</label><br>
+    <div class="info-item" style="margin-top: -15px;">
+    <label>Sex</label>
     <label>
     <input type="radio" name="sex" value="Male" <?= $user['sex'] === 'Male' ? 'checked' : '' ?> disabled 
-    style="position: absolute; margin: 3px 0px 0px -470px;"> 
+    style="position: absolute; margin: 3px 0px 0px -550px;"> 
     <span style="margin-left: 30px;">Male</span>
     </label>
 
     <label>
     <input type="radio" name="sex" value="Female" <?= $user['sex'] === 'Female' ? 'checked' : '' ?> disabled 
-    style="position: absolute; margin: -35px 0px 0px -380px;"> 
+    style="position: absolute; margin: -35px 0px 0px -460px;"> 
     <span style="margin: -37px 0px 0px 120px; position: absolute;">Female</span>
-</label><br>
+</label>
 </div>
 
     
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Birthday 
         <input type="text" value="<?= htmlspecialchars($user['birthdate']) ?>" readonly>
-    </label><br>
+    </label>
     </div>
 
-    <div class="info-item">  
+    <div class="info-item" id="personal">  
     <label>Mobile Number 
         <input type="text" class="editable" name="contact_no" onkeypress="enforceNumericInput(event)" pattern="\d{11}" title="11-digit number starting with 09" value="<?= htmlspecialchars($user['contact_no']) ?>" readonly>
         <div id="contactError" class="error-message"></div>
-    </label><br>
+    </label>
     </div>
     
-    <div class="info-item">
+    <div class="info-item" id="personal">
     <label>Email Address
         <input type="email" class="editable" name="email" value="<?= htmlspecialchars($user['email']) ?>" readonly>
         <div id="emailError" class="error-message"></div>
-    </label><br>
+    </label>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" id="brgy" style="margin-top: -30px;">
     <p id="address-title">Address</p>
     <br>
     <label>House/Lot Number
@@ -647,15 +700,15 @@ document.addEventListener('DOMContentLoaded', () => {
     </label><br>
     </div>
 
-    <div class="info-item">
-    <p>Job Description</p>
+    <div class="info-item" id="job" style=" margin-top: -13px;">
+    <p style="margin: 5px 0px 0px -3px;">Job Description</p>
     <label>Role
         <input type="text" value="<?= htmlspecialchars($user['role']) ?>" readonly>
     </label><br>
     </div>
 
     <div class="info-item" id="job">
-    <label>Position: 
+    <label>Position 
         <input type="text" value="<?= htmlspecialchars($user['position']) ?>" readonly>
     </label><br>
     </div>
@@ -675,11 +728,12 @@ document.addEventListener('DOMContentLoaded', () => {
     <button type="button" id="editButton" onclick="toggleEditMode(true)">Edit Information</button>
     <button type="button" id="saveButton" style="display:none;" onclick="showModal()">Save Changes</button>
 
-<div id="confirmModal">
+<div id="confirmModal" class="modal">
     <div class="modal-content">
-        <p>Are you sure you want to save changes?</p>
-        <button type="button" onclick="saveChanges()">Yes</button>
-        <button type="button" onclick="closeModal()">No</button>
+    <img class="question-sign" src="images/question.png">
+        <h2>Are you sure you want to save changes?</h2>
+        <button id="yesbtn" type="button" onclick="saveChanges()">Yes</button>
+        <button id="nobtn" type="button" onclick="closeModal()">No</button>
     </div>
 </div>
 
