@@ -314,7 +314,7 @@ $conn->close();
             color: white; 
             cursor: pointer;
             font-weight: normal;
-            margin: -65px 0px 0px 170px; 
+            margin: -65px 0px 0px 380px; 
             padding: 50px;
             position: absolute;
             min-width: 1000px !important;
@@ -333,7 +333,7 @@ $conn->close();
         }
 
         #upload-icon {
-            margin: -20px 0px 0px 180px;
+            margin: -20px 0px 0px 390px;
             position: absolute;
             color: white;
             font-size: 30px;
@@ -853,5 +853,7 @@ document.querySelectorAll('input[required], select[required], textarea[required]
     }
 }
 </script>
+
+
 </body>
 </html>
