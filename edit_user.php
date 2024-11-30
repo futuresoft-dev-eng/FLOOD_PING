@@ -501,7 +501,7 @@ include 'adminsidebar-accountservices.php';
 
 <body>
     <div class="header">
-        <p id="resident-title"> Resident's Details </p>
+        <p id="resident-title"> User Details </p>
     <a href="http://localhost/floodping/add_user.php" class="back-button">
 <span class="material-symbols-rounded">arrow_back</span>
 </a>    
@@ -521,13 +521,11 @@ include 'adminsidebar-accountservices.php';
     <label id="uploadLabel" for="profilePhotoInput">UPLOAD A PHOTO</label>
     <span class="material-symbols-rounded" id="upload-icon">file_upload</span>
 
-<?php if ($user['profile_photo']) : ?>
-    <!-- Display existing image if exists in the uploads folder -->
-    <img id="profilePhotoPreview" src="./uploads/<?= htmlspecialchars($user['profile_photo']) ?>" alt="Profile Photo">
-<?php else : ?>
-    <!-- Default image if no profile photo exists -->
-    <img id="profilePhotoPreview" src="default_image.jpg" alt="Profile Photo">
-<?php endif; ?>
+    <?php if (!empty($user['profile_photo'])): ?>
+        <img src="<?= htmlspecialchars($user['profile_photo']) ?>" id="profilePhotoPreview" alt="Profile Photo" width="150" height="150">
+    <?php else: ?>
+        <p>No profile photo available.</p>
+    <?php endif; ?>
 <br>
 <input type="file" name="profile_photo" id="profilePhotoInput" onchange="previewImage(event)"><br><br>
 
