@@ -140,7 +140,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             width: 800px;
             height: 560px;
             border-radius: 24px;
-            margin: 120px 0px 0px 400px;
+            margin: 160px 0px 0px 450px;
         }
 
         .form-container p {
@@ -214,7 +214,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             padding: 5px 55px;
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 200px 0px 0px 0px;
+            margin: 300px 0px 0px 0px;
             position: absolute;
         }
 
@@ -250,6 +250,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
         }
 
         .modal {
+            display: hidden;
             position: fixed;
             z-index: 100;
             left: 0;
