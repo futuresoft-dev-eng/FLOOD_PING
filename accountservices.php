@@ -284,7 +284,7 @@ include 'adminsidebar.php';
 </div>
 
     <div class="container">
-        <form id="importForm" action="/floodping/ADMIN/import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
+        <form id="importForm" action="import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
             <input type="file" name="file" id="fileInput" accept=".xls, .xlsx" required>
         </form>
         
@@ -422,7 +422,7 @@ if (isset($_GET['delete_status'])) {
                             echo "<td>{$residentRow['suffix']}</td>";
                             echo "<td>{$residentRow['mobile_number']}</td>";
                             echo "<td>" . ($residentRow['account_status'] ?? 'Unknown') . "</td>";
-                            echo "<td><a href='/floodping/ADMIN/viewresident.php?resident_id={$residentRow['resident_id']}' class='view-btn'><span class='material-symbols-rounded'>visibility</span>VIEW</a></td>";
+                            echo "<td><a href='viewresident.php?resident_id={$residentRow['resident_id']}' class='view-btn'><span class='material-symbols-rounded'>visibility</span>VIEW</a></td>";
                             echo "</tr>";
                         }
                     } else {
@@ -437,7 +437,7 @@ if (isset($_GET['delete_status'])) {
             <span id="selectedCount" class="selected-count">0 Selected</span>
 
              <!-- Export Data -->
-             <a href="/floodping/ADMIN/export_residents.php" class="export-btn disabled">
+             <a href="export_residents.php" class="export-btn disabled">
              <span class="material-symbols-rounded">download</span> EXPORT
             </a>
 
@@ -450,7 +450,7 @@ if (isset($_GET['delete_status'])) {
         <button id="reactivateSelectedBtn" class="status-btn reactivate-btn">
             <span class="material-symbols-rounded">notifications_active</span> REACTIVATE
         </button>
-            <form id="statusUpdateForm" action="/floodping/ADMIN/updateresidents_status.php" method="POST" style="display: none;">
+            <form id="statusUpdateForm" action="updateresidents_status.php" method="POST" style="display: none;">
                 <input type="hidden" name="selected_residents" id="statusResidentsInput">
                 <input type="hidden" name="action" id="statusActionInput">
             </form>
@@ -460,7 +460,7 @@ if (isset($_GET['delete_status'])) {
                 <span class="material-symbols-rounded">delete</span> DELETE
             </button>
             </div>
-            <form id="deleteForm" action="/floodping/ADMIN/delete_residents.php" method="POST" style="display: none;">
+            <form id="deleteForm" action="delete_residents.php" method="POST" style="display: none;">
                 <input type="hidden" name="selected_residents" id="selectedResidentsInput">
             </form>
     </div>
@@ -482,7 +482,7 @@ $(document).ready(function () {
     if (!$('.import-btn').length) {
         $("div.dataTables_filter").prepend(`
         <!-- Create New Resident -->
-            <a href="/floodping/ADMIN/addresident.php" class="create-btn">
+            <a href="addresident.php" class="create-btn">
                 <span class="material-symbols-rounded">add</span> CREATE NEW
             </a>
             <button type="button" class="import-btn">
