@@ -249,7 +249,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         <a href="accountservices.php" class="nav-link">
             <span class="material-symbols-rounded">manage_accounts</span>
         </a>
-        <a href="shiftmanagement.php" class="nav-link">
+        <a href="workforce_manager.php" class="nav-link">
             <span class="material-symbols-rounded">history</span>
         </a>
         <a href="admin_profile.php" class="nav-link">
@@ -302,7 +302,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 
                 <div class="section-title">Workforce Manager</div>
                 <li class="nav-item">
-                    <a href="shiftmanagement.php" class="nav-link">
+                    <a href="workforce_manager.php" class="nav-link">
                         <span class="material-symbols-rounded">history</span> <span class="icon-text">Shift Management</span>
                     </a>
                 </li>
