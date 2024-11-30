@@ -3,236 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
     <link rel="icon" href="./images/Floodpinglogo.png" type="image/png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded">
+
     <style>
-        * {
+        body {
+            font-family: Poppins, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
             display: flex;
+            min-height: 100vh;
+            overflow-x: hidden; 
+
         }
 
-        .container {
-            width: 100%;
-            padding: 20px;
-        }
-
-        .header {
-            background-image: url('./images/bgwaves.jpg');
-            background-size: cover;
-            border-radius: 8px;
-            padding: 20px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
+        .sidebar {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            height: 100px;
-        }
-
-        .header-title {
-            font-size: 24px;
-        }
-
-        .header-date {
-            font-size: 18px;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #E8F3F8;
+            padding-top: 20px;
+            width: 250px;
+            min-width: 250px; 
+            position: fixed;
+            z-index: 1;
+            overflow-y: auto;
+            transition: width 0.9s ease;
         }
 
         .main-content {
+            margin-left: 75px; 
+            padding: 0px;
+            flex-grow: 1;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            box-sizing: border-box;
+            overflow-y: auto; 
+            margin-top: 60px; 
+            position: absolute;
+            width: 84%;
+
+        }
+
+        .sidebar-logo {
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            align-items: center;
+            justify-content: left;
+            
+            padding: 10px 0;
+            background-color: #02476A;
+            color: white;
+            gap: 10px;
         }
 
-        .left-section {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .sidebar-logo img {
+            width: 45px;
+            margin-left: 15px;
+            margin-right:5px;
         }
 
-        .right-section {
-            flex: 2;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .titlee {
-            font-size: 18px;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #ddd;
-            border-radius: 8px;
-            background-color: #E8F3F8;
-            color: #02476A;
-            text-align: center;
-        }
-
-        .dashboard-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            flex: 1;
-            text-align: center;
-        }
-
-        .card h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .card-value {
-            font-size: 30px;
-            font-weight: bold;
-            margin: 10px 0;
-            color: #4597C0;
-        }
-
-        .highlight-moderate {
-            color: orange;
-            font-weight: bold;
-        }
-
-        .station-info {
-            text-align: center;
-        }
-
-        .station-info img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .info-buttons button {
-            padding: 10px 15px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .sidebar-content {
+            flex-grow: 1;
+            margin-top: 18px;
             font-size: 14px;
         }
 
-        .info-buttons .watch-live {
-            background-color: #28a745;
+        .time-section {
             color: white;
+            padding: 0px 10px 10px 10px;
+            text-align: center;
+            background-color: #02476A;
         }
 
-        .info-buttons .view-alerts {
-            background-color: #007bff;
+        .time-section .time {
+            font-size: 27px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .time-section .date {
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .station {
+            background-color: #386A83;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            padding-left: 30px;
+            margin: 6px 5px;
+            border-radius: 5px;
+            font-size: 13px;
+            border: none;
+            position: relative;
+        }
+
+        .station::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            width: 12px;
+            height: 12px;
+            background-color: #F2CA00;
+            border-radius: 50%;
+        }
+
+        .section-title {
+            font-size: 12px;
+            color: #4F8AA7;
+            padding: 2px 20px 7px 20px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .nav-link {
+            color: #002D44;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 0 10px 10px 0;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            margin: 0 0 7px 0;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background-color: #4597C0;
+            color: #fff;
+            border-radius: 0 25px 25px 0;
+            padding-left: 25px;
+        }
+
+        .active-link {
+            background-color: #4597C0;
+            color: #fff;
+            border-radius: 0 25px 25px 0;
+            padding: 12px 20px;
+            width: 100%;
+            text-decoration: none;
+            position: absolute;
+        }
+
+        .active-link .material-symbols-rounded {
+            vertical-align: middle; 
+        }
+
+        .material-symbols-rounded {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .user-info-container {
+            margin-top: auto;
+            background-color: #d6e7f0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #e9ecef;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .user-link {
+            color: #002D44;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .user-icon {
+            font-size: 40px;
+            color: #002D44;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #0C517C;
+        }
+
+        .logout-button {
+            font-size: 24px;
+            color: #02476A;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .logout-button:hover {
+            color: white;
+            background-color: #02476A;
+        }
+
+        h2 {
+            font-size: 12px;
+            color: #02476A;
+            font-weight: 500;
+            margin: 40px 0 5px 10px;
+        }
+        
+
+        /* Responsive  */
+        @media (max-width: 992px) {
+            .sidebar {
+                display: none;
+            }
+
+            .top-bar {
+                display: flex;
+                position: fixed;
+                top: 0;
+                width: 100%;
+                height: 50px;
+                background-color: #E8F3F8;
+                color: white;
+                justify-content: space-around;
+                align-items: center;
+                z-index: 2;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 50px;
+                margin-top: 50px
+            }
+        }
+
+        @media (max-width: 575px) {
+            .top-bar .icon-text {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
-    <?php 
-        session_start(); 
-        include('./sidebar.php'); 
-        include_once('db_conn.php');
-        date_default_timezone_set('Asia/Manila'); 
+<?php
+$fullName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Guest User';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
+?>
+       <!-- Top bar  -->
+       <div class="top-bar d-md-none">
+        <a href="admindashboard.php" class="nav-link">
+            <span class="material-symbols-rounded">dashboard</span>
+        </a>
+        <a href="activitylog.php" class="nav-link">
+            <span class="material-symbols-rounded">article</span>
+        </a>
+        <a href="adminlivecam.php" class="nav-link">
+            <span class="material-symbols-rounded">videocam</span>
+        </a>
+        <a href="accountservices.php" class="nav-link">
+            <span class="material-symbols-rounded">manage_accounts</span>
+        </a>
+        <a href="shiftmanagement.php" class="nav-link">
+            <span class="material-symbols-rounded">history</span>
+        </a>
+        <a href="admin_profile.php" class="nav-link">
+            <span class="material-symbols-rounded">account_circle</span>
+        </a>
+        <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">
+            chevron_right
+        </span>
+      </div>
 
-// Fetch the number of residents
-$totalResidents = 0;
-
-// Query the residents table to count the total number of residents
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM residents");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $totalResidents = $row['total'];
-}
-
-
-// Active accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Active'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $activeAccounts = $row['total'];
-}
-
-// Locked accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Locked'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $lockedAccounts = $row['total'];
-}
-
-// Deactivated accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Inactive'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $deactivatedAccounts = $row['total'];
-}
-    ?>
-    <div class="container">
-        <div class="header">
-            <div class="header-title">FLOODPING: FLOOD MONITORING AND ALERT SYSTEM</div>
-            <div class="header-date"><?php echo date('F d, Y h:i A'); ?></div>
+    <!-- Sidebar -->
+    <nav class="sidebar d-none d-md-flex flex-column p-0">
+        <div class="sidebar-logo">
+            <img src="./images/Floodpinglogo.png" alt="floodping">
+            <div class="sidebar-logo-text" style="font-size: 16px; font-weight: 600;">FLOODPING</div>
         </div>
 
-        <div class="main-content">
-            <!-- Left Section -->
-            <div class="left-section">
-                <div>
-                <div class="titlee">USERS</div>
-                <div class="dashboard-row">
-                    <div class="card">
-                        <h3>Number of Residents</h3>
-                     <div class="card-value highlight-moderate"><?php echo $totalResidents; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Active Accounts</h3>
-                        <div class="card-value"><?php echo $activeAccounts; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Locked Accounts</h3>
-                        <div style="color:red;" class="card-value"><?php echo $lockedAccounts; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Deactivated Accounts</h3>
-                        <div class="card-value"><?php echo $deactivatedAccounts; ?></div>
-                    </div>
-                </div>
-            </div>
-                <div>
-                    <div class="titlee">RESIDENT REGISTRATION GROWTH</div>
-                    <div class="dashboard-row">
-                    <img src="./images/RESIDENT REGISTRATION GROWTH.png" alt="Flood Graph" style="width: 100%; height: auto;">
-          
-                </div>
-                </div>
-            </div>
-
-            <!-- Right Section -->
-            <div class="right-section">
-                <div class="titlee">Flood Height Point Graph</div>
-                <img src="./images/floodgraph.png" alt="Flood Graph" style="width: 100%; height: auto;">
-                <div style="background-color: white; border-radius: 8px;   text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 50px; font-size: 14px; color: gray;"><b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
-      
-            <div class="station-info">
-                    <img src="./images/darius.png" alt="Station Image">
-                    <h3>DARIUS CREEK</h3>
-                    <p><strong>Station Location:</strong> Near Santolan Street</p>
-                    <div class="info-buttons">
-                        <button class="watch-live">WATCH LIVESTREAM</button>
-                    </div>
+        <div class="time-section">
+            <div class="time" id="current-time"></div>
+            <div class="date" id="current-date"></div>
+            <div class="station">DARIUS STATION</div>
         </div>
-    </div>
+
+        <div class="sidebar-content">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="admindashboard.php" class="active-link">
+                        <span class="material-symbols-rounded">dashboard</span> <span class="icon-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" style="margin-top: 60px;">
+                    <a href="activitylog.php" class="nav-link">
+                        <span class="material-symbols-rounded">article</span> <span class="icon-text">Activity Logs</span>
+                    </a>
+                </li>
+
+                <div class="section-title" style="margin-top: 10px;">Flood Monitoring</div>
+                <li class="nav-item">
+                    <a href="adminlivecam.php" class="nav-link">
+                        <span class="material-symbols-rounded">videocam</span> <span class="icon-text">Live Camera Feed</span>
+                    </a>
+                </li>
+
+                <div class="section-title" style="margin-top: 10px;">User Management</div>
+                <li class="nav-item">
+                    <a href="add_user.php" class="nav-link">
+                        <span class="material-symbols-rounded">manage_accounts</span> <span class="icon-text">Account Services</span>
+                    </a>
+                </li>
+
+                <div class="section-title" style="margin-top: 10px;">Workforce Manager</div>
+                <li class="nav-item">
+                    <a href="workforce_manager.php" class="nav-link">
+                        <span class="material-symbols-rounded">history</span> <span class="icon-text">Shift Management</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <h2>Logged in as:</h2>
+<div class="user-info-container">
+    <a href="admin_profile.php" class="user-link">
+        <span class="material-symbols-rounded user-icon">account_circle</span>
+        <div>
+            <div class="user-name"><?= htmlspecialchars($fullName); ?></div>
+            <div class="user-role"><?= htmlspecialchars($role); ?></div>
+        </div>
+    </a>
+    <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">
+        chevron_right
+    </span>
+</div>
+
+
+    </nav>
+
+    <!-- content area -->
+    <main class="main-content">
+        
+    </main>
+
+    <script>
+    function updateTimeAndDate() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('current-time').textContent = `${hours}:${minutes} ${ampm}`;
+
+        // Format date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = now.toLocaleDateString(undefined, options);
+        const [weekday, month, day, year] = formattedDate.match(/(\w+), (\w+) (\d+), (\d+)/).slice(1);
+
+        document.getElementById('current-date').innerHTML = `${weekday}&nbsp;&nbsp;|&nbsp;&nbsp;${month} ${day}, ${year}`;
+    }
+
+    setInterval(updateTimeAndDate, 1000);
+    updateTimeAndDate();
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
