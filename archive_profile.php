@@ -4,6 +4,29 @@ session_start();
 include 'update_user.php'; 
 include 'db_conn.php';
 include 'adminsidebar-accountservices.php';
+
+// Fetch the user from the database based on some identifier (e.g., user_id)
+$user_id = $_GET['user_id'];  // Or you could use $_SESSION or any other way to get the user ID
+
+$sql = "SELECT * FROM archive_accounts WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Check if a user is found
+if ($result->num_rows > 0) {
+    // Fetch the user data into the $archive_accounts variable
+    $archive_accounts = $result->fetch_assoc();
+} else {
+    // Handle the case where the user is not found
+    echo "User not found!";
+    exit;
+}
+
+// Don't forget to close the statement and connection
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -303,16 +326,14 @@ include 'adminsidebar-accountservices.php';
     <div class="container">
     <div class="title-container">
         <h3>PROFILE</h3>
-   <form method="POST" enctype="multipart/form-data" action="update_user.php?user_id=<?= $user['user_id'] ?>">
+   <form method="POST" enctype="multipart/form-data" action="update_user.php?user_id=<?= $archive_accounts['user_id'] ?>">
     </div>
 
-<?php if ($user['profile_photo']) : ?>
-    <!-- Display existing image if exists in the uploads folder -->
-    <img id="profilePhotoPreview" src="./uploads/<?= htmlspecialchars($user['profile_photo']) ?>" alt="Profile Photo">
-<?php else : ?>
-    <!-- Default image if no profile photo exists -->
-    <img id="profilePhotoPreview" src="default_image.jpg" alt="Profile Photo">
-<?php endif; ?>
+    <?php if (!empty($archive_accounts['profile_photo'])): ?>
+        <img src="<?= htmlspecialchars($archive_accounts['profile_photo']) ?>" id="profilePhotoPreview" alt="Profile Photo" width="150" height="150">
+    <?php else: ?>
+        <p>No profile photo available.</p>
+    <?php endif; ?>
 <br>
 <input type="file" name="profile_photo" id="profilePhotoInput" onchange="previewImage(event)"><br><br>
 
@@ -322,34 +343,34 @@ include 'adminsidebar-accountservices.php';
         <div class="info-group">
         <div class="info-item-id">
     <label id="userID-title">User ID</label>
-    <input type="text" value="<?= htmlspecialchars($user['user_id']) ?>" readonly class="readonly-field"><br>
+    <input type="text" value="<?= htmlspecialchars($archive_accounts['user_id']) ?>" readonly class="readonly-field"><br>
     <br>
     </div> 
 
     <div class="info-item" id="personal">
     <p id="personal-info-title" style="margin: -30px 0px 5px -3px;">Personal Information</p>
     <label>First Name:</label>
-    <input type="text" name="first_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['first_name']) ?>"><br>
+    <input type="text" name="first_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['first_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Middle Name (Optional)</label>
-    <input type="text" name="middle_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['middle_name']) ?>"><br>
+    <input type="text" name="middle_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['middle_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Last Name</label>
-    <input type="text" name="last_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['last_name']) ?>"><br>
+    <input type="text" name="last_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['last_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Suffix (Optional)</label>
-    <input type="text" name="suffix" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['suffix']) ?>"><br>
+    <input type="text" name="suffix" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['suffix']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Contact No</label>
-    <input type="text" name="contact_no" value="<?= htmlspecialchars($user['contact_no']) ?>" id="contactNo" maxlength="11" oninput="validateContactNumber()"><br>
+    <input type="text" name="contact_no" value="<?= htmlspecialchars($archive_accounts['contact_no']) ?>" id="contactNo" maxlength="11" oninput="validateContactNumber()"><br>
     </div>
 
     <div class="info-item" style="margin-top: -20px;">
@@ -357,73 +378,73 @@ include 'adminsidebar-accountservices.php';
     <div class="sex-option">
     <input type="radio" name="sex" id="male-sex" value="Male" 
        style="margin: -0px 0px 0px -535px; position: absolute;" 
-       <?= ($user['sex'] === 'Male') ? 'checked' : '' ?>>
+       <?= ($archive_accounts['sex'] === 'Male') ? 'checked' : '' ?>>
 <label for="male-sex" style="margin-left: 40px; font-weight: 500; font-size: 14px;">Male</label><br>
 
 
     <input type="radio" name="sex" id="female-sex" value="Female" 
        style="margin: -0px 0px 0px -465px; position: absolute;" 
-       <?= ($user['sex'] === 'Female') ? 'checked' : '' ?>>
+       <?= ($archive_accounts['sex'] === 'Female') ? 'checked' : '' ?>>
 <label for="female-sex" style="margin: -0px 0px 0px 110px; font-weight: 500; font-size: 14px; position: absolute;">Female</label><br><br>
 </div>
     </div>
 
     <div class="info-item" id="personal">
     <label>Birthdate</label>
-    <input type="date" name="birthdate" value="<?= htmlspecialchars($user['birthdate']) ?>"><br>
+    <input type="date" name="birthdate" value="<?= htmlspecialchars($archive_accounts['birthdate']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Email</label>
-    <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>"><br>
+    <input type="text" name="email" value="<?= htmlspecialchars($archive_accounts['email']) ?>"><br>
     </div>
 
     <div class="info-item" id="brgy" style="margin-top: -10px;">
     <p id="address-title">Address</p>
     <br>
     <label>City</label>
-    <input type="text" name="city" value="<?= htmlspecialchars($user['city']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="city" value="<?= htmlspecialchars($archive_accounts['city']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>Barangay</label>
-    <input type="text" name="barangay" value="<?= htmlspecialchars($user['barangay']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="barangay" value="<?= htmlspecialchars($archive_accounts['barangay']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>House/Lot Number</label>
-    <input type="text" name="house_lot_number" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['house_lot_number']) ?>"><br>
+    <input type="text" name="house_lot_number" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['house_lot_number']) ?>"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>Street/Subdivision Name</label>
-    <input type="text" name="street_subdivision_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['street_subdivision_name']) ?>"><br>
+    <input type="text" name="street_subdivision_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['street_subdivision_name']) ?>"><br>
     </div>
 
     <div class="info-item">
     <p style="margin: -5px 0px 0px -3px;">Job Description</p>
     <label>Role</label>
     <select name="role">
-        <option value="Admin" <?= ($user['role'] === 'Admin') ? 'selected' : '' ?>>Admin</option>
-        <option value="Local Authority" <?= ($user['role'] === 'Local Authority') ? 'selected' : '' ?>>Local Authority</option>
+        <option value="Admin" <?= ($archive_accounts['role'] === 'Admin') ? 'selected' : '' ?>>Admin</option>
+        <option value="Local Authority" <?= ($archive_accounts['role'] === 'Local Authority') ? 'selected' : '' ?>>Local Authority</option>
     </select><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Position</label>
     <select name="position">
-        <option value="Executive Officer" <?= ($user['position'] === 'Executive Officer') ? 'selected' : '' ?>>Executive Officer</option>
+        <option value="Executive Officer" <?= ($archive_accounts['position'] === 'Executive Officer') ? 'selected' : '' ?>>Executive Officer</option>
     </select><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Work Day Schedule</label>
-    <input type="text" name="schedule" value="<?= htmlspecialchars($user['schedule']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="schedule" value="<?= htmlspecialchars($archive_accounts['schedule']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Work Time Schedule</label>
-    <input type="text" name="shift" value="<?= htmlspecialchars($user['shift']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="shift" value="<?= htmlspecialchars($archive_accounts['shift']) ?>" readonly class="readonly-field"><br>
     </div>
 </form>
  </div>
@@ -433,7 +454,7 @@ include 'adminsidebar-accountservices.php';
     <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
     
     <label id="statuslbl">Status</label>
-    <input type="text" id="acc-status" name="account_status" value="<?= htmlspecialchars($user['account_status'] ?? 'Active') ?>" readonly class="readonly-field">
+    <input type="text" id="acc-status" name="account_status" value="<?= htmlspecialchars($archive_accounts['account_status'] ?? 'Active') ?>" readonly class="readonly-field">
 </form>
 
 
