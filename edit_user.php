@@ -8,6 +8,7 @@ include 'adminsidebar.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,12 +25,12 @@ include 'adminsidebar.php';
         }
      
         .title-container h3 {
-            width: 1220px;
+            width: 1340px;
             height: 50px;
             background-color: #4597C0;
             color: #FFFFFF;
             font-size: 20px;
-            margin: 100px 0px 0px 10px;
+            margin: 100px 0px 0px 30px;
             position: a-zA-Z0-9;
             text-transform: uppercase;
             padding: 10px;
@@ -48,7 +49,7 @@ include 'adminsidebar.php';
             cursor: pointer;
             text-decoration: none; 
             z-index: 100;
-            margin: 30px 0px 0px 227px;
+            margin: 37px 0px 0px 240px;
             position: absolute;
         }   
 
@@ -63,7 +64,7 @@ include 'adminsidebar.php';
         
         .profile-info {
             width: 70%;
-            margin: -30px 0px 0px -270px !important;
+            margin: -30px 0px 0px -260px !important;
             position: absolute;
 
         }
@@ -80,18 +81,18 @@ include 'adminsidebar.php';
         .info-group {
             margin: 0px 0px 0px 300px;
             position: absolute;
-            width: 90%;
+            width: 95%;
         }
         
         .info-item-id  {
             width: 130px;
-            margin: 50px 0px 0px 930px;
+            margin: 50px 0px 0px 1090px;
             position: absolute;
             font-size: 14px;
         }
 
         .info-item-id input  {
-            width: 144px;
+            width: 140px;
             height: 35px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -156,7 +157,7 @@ include 'adminsidebar.php';
             color: white; 
             cursor: pointer;
             font-weight: normal;
-            margin: -85px 0px 0px 1030px; 
+            margin: -85px 0px 0px 1170px; 
             padding: 50px;
             position: absolute;
             min-width: 1000px !important;
@@ -170,12 +171,12 @@ include 'adminsidebar.php';
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 40px 0px 0px 1050px;
+            margin: 40px 0px 0px 1220px;
             position: absolute;
         }
 
         #upload-icon {
-            margin: -40px 0px 0px 1040px;
+            margin: -40px 0px 0px 1180px;
             position: absolute;
             color: white;
             font-size: 30px;
@@ -237,14 +238,14 @@ include 'adminsidebar.php';
         #updateButton {
             font-size: 14px;
             width: 17%;
-            height: 10%;
+            height: 11%;
             padding: 8px auto;
             border: none;
             border-radius: 5px;
             color: #FFFFFF;
             background-color: #4597C0;
             text-transform: uppercase;
-            margin: 510px 0px 0px 970px;
+            margin: 508px 0px 0px 930px;
             position: absolute;
         }
 
@@ -258,7 +259,7 @@ include 'adminsidebar.php';
             color: #FFFF;
             background-color: #0073AC;
             text-transform: uppercase;
-            margin: 30px 0px 0px 1150px;
+            margin: 40px 0px 0px 1260px;
             position: absolute;
 
         }
@@ -325,21 +326,21 @@ include 'adminsidebar.php';
         #archiveButton {
             font-size: 14px;
             width: 12%;
-            height: 5%;
+            height: 5.2%;
             padding: 8px auto;
             border: none;
             border-radius: 5px;
             color: #FFFFFF;
             background-color: #EA3323;
             text-transform: uppercase;
-            margin: 74px 0px 0px 800px;
+            margin: 74px 0px 0px 750px;
             position: absolute;
         }
 
         #resident-title {
             font-size: 20px;
             font-weight: bold;
-            margin: 35px 0px 0px 310px;
+            margin: 40px 0px 0px 320px;
             position: absolute;
             text-transform: uppercase;
         }
@@ -406,7 +407,7 @@ include 'adminsidebar.php';
             font-size: 12px;
             text-transform: uppercase;
         }
-        
+
         button#close-button {
             background-color: #4597C0;
             color: white;
@@ -430,7 +431,7 @@ include 'adminsidebar.php';
             margin-left: 300px;
             position: fixed;
         }
-        
+
         #archive-model-content {
             background-color: white;
             border-radius: 8px !important;
@@ -442,8 +443,9 @@ include 'adminsidebar.php';
             font-size: 12px;
             text-align: justify;
             border: 2px solid #ccc;
+
         }
-        
+
         #archive-modal-content h2 {
             width: 55%;
             font-size: 15px;
