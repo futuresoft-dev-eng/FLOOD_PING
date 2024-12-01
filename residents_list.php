@@ -5,73 +5,110 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <style>
-    .main-content {
-        margin-left: 0px; padding: 20px;
+ .main-content {
+        margin-left: 30px; 
+        padding: 20px;
     }
+
     .container {
         max-width: 100%;
     }
+
+    .title h3 {
+        font-size: 25px;
+        font-weight: bold;
+        color: #02476A;
+        margin: 30px 0px 0px 170px !important;   
+    }
+
     .table-container {
         background-color: white;
         padding: 20px;
         border-radius: 5px;
         border: 1px solid #F6F6F6;
-        margin-top: 30px;
+        margin-top: 75px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        margin-left: 156px;
     }
+
+    #residentTable {
+        width: 100%;
+        margin-left: 0px;
+    }
+
     .dataTables_filter {
         position: relative;
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-top: -40px !important;
+        position: relative;
+        margin-bottom: 30px;
+        top: 10px;
     }
+
     .dataTables_filter input {
         width: 350px;
-        padding: 80px 12px 8px 30px; 
+        padding: 8px !important;
+        padding-left: 25px !important;
         border-radius: 5px;
         border: 1px solid #02476A;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);  
     }
+
     .dataTables_filter::before {
         content: '\e8b6'; 
         font-family: 'Material Symbols Rounded';
         position: absolute;
-        left: 325px;
+        left: 20px;
         top: 50%;
         transform: translateY(-50%);
         font-size: 18px;
         color: #02476A;
         pointer-events: none;
     }
+
     #statusFilter {
-        margin-left: 10px;
+        margin: 40px 0px 0px 160px !important;
         padding: 5px;
         border-radius: 5px;
         border: 1px solid #02476A;
         color: #02476A;
+        font-size: 13px;
     }
+
     .dataTables_filter label {
         margin-right: 5px;
         font-weight: bold;
+        font-size: 13px;
     }
+    
     .table th {
         color: #02476A;
         background-color: #E8F3F8;
         font-weight: bold;
+        font-size: 13px;
+        width: 680px;
     }
+
+    .table td {
+        font-size: 13px;
+    }
+
     .table tbody td:last-child {
         text-align: center;
         display: flex;
         justify-content: center;
     }
+
     .create-btn, .import-btn,
-    .view-btn, .export-btn, .delete-btn,
+    .edit-btn, .export-btn, .delete-btn,
     .deactivate-btn, .reactivate-btn  {
         color: white;
-        padding: 12px 16px;
+        padding: 10px 16px;
         border: none;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 13px;
         cursor: pointer;
         margin-right: 10px;
         text-decoration: none;
@@ -83,29 +120,56 @@
     }
     .create-btn {
         background-color: #59C447;
+        margin-left: -290px;
+        position: absolute;
+        margin-top: -0px;
     }
     .import-btn {
         background-color: #4597C0;
+        margin-left: -150px;
+        position: absolute;
     }
+
     .view-btn {
+        font-size: 13px;
+        text-decoration: none;
+        color: #FFFFFF;
         background-color: #4597C0;
         padding: 5px 15px;
+        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
+
+    .view-btn .material-symbols-rounded {
+        margin: 0px 5px 0px 0px !important; 
+        font-size: 14px;
+    }
+
     .export-btn {
         background-color: #0288D1;
-        margin-left: 60%;
-        margin-top:20px;
+        margin-left: 64.6%;
+        margin-top: 20px;
     }
+
     .delete-btn {
         background-color: #EA3323;
-        margin-top:20px;
+        margin-top: 20px;
     }
+
     .deactivate-btn{
         background-color: #EB8817;
+        margin-top: 20px;
+        margin-left: 0px;
     }
+
     .reactivate-btn{
         background-color: #59C447;
+        margin-top: 20px;
+        margin-left: 0px;
     }
+
     .export-btn .material-symbols-rounded,
     .delete-btn .material-symbols-rounded,
     .create-btn .material-symbols-rounded,
@@ -113,12 +177,89 @@
     .import-btn .material-symbols-rounded,
     .deactivate-btn .material-symbols-rounded,
     .reactivate-btn .material-symbols-rounded {      
-        margin-right: 5px;
-        font-size: 18px;
+        margin-right: 0px;
+        font-size: 14px;
     }
+
     button:disabled, .export-btn:disabled {
         background-color: #C5C5C5;
         pointer-events: none; 
+    }
+   
+    #selectedCount {
+        font-size: 14px;
+        margin: 20px 0px 0px 160px;
+        position: absolute;
+    }
+
+    .dataTables_paginate .paginate_button {
+        font-size: 13px; 
+        margin-top: 20px;
+    }
+
+    .dataTables_info {
+        font-size: 13px; 
+        margin-top: 20px;
+    }
+
+    .dataTables_length {
+    margin-top: -30px; 
+    font-size: 13px;
+    }
+
+    .dataTables_length select {
+        font-size: 13px; 
+    }
+
+    .buttons-container {
+        display: flex;
+        margin: 20px 0;
+        position: absolute;
+        top: 130px;
+        left: 288px;
+        border-radius: none !important;
+    }
+
+    .navigation-btn {
+        min-width: 456px;
+        height: 50px;
+        background-color: #FFFFFF;
+        color: #02476A;
+        border: 1px solid #ccc;
+        border-radius: none !important;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        font-size: 16px;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+        margin-left: 0px;
+    }
+
+    .navigation-btn.active {
+        background-color: #4597C0 !important; 
+        color: white !important;
+    }
+
+    #userAccountsBtn {
+        border-top-left-radius: 10px;
+        
+    }
+
+    #residentsBtn {
+        background-color: #FFFFFF;
+        color: #02476A;
+        border: 1px solid #ccc;
+    }
+
+    #archiveBtn {
+        border-top-right-radius: 10px; 
+        background-color: #FFFFFF;
+        color: #02476A;
+        border: 1px solid #ccc;
     }
 
  /* Responsive */
@@ -134,30 +275,28 @@
             }
         }
 </style>
+
 <?php
-include_once('./adminsidebar.php');
-include_once('db_conn.php');
+include 'db_conn.php';
+include 'adminsidebar-accountservices.php';
 ?>
 <main class="main-content">
+<div class="title">
+    <h3>RESIDENT MANAGEMENT</h3>
+</div>
+<hr style="color: gray; width: 90%; position: absolute; margin: 30px 0px 0px 40px;">
+
+<div class="buttons-container">
+    <button class="navigation-btn" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'add_user.php')">User Accounts</button>
+    <button class="navigation-btn active" id="residentsBtn" onclick="activateButton('residentsBtn', 'accountservices.php')">Resident List</button>
+    <button class="navigation-btn" id="archiveBtn" onclick="activateButton('residentsBtn', 'archive_account.php')">Archive</button>
+</div>
+
     <div class="container">
         <form id="importForm" action="import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
             <input type="file" name="file" id="fileInput" accept=".xls, .xlsx" required>
         </form>
-        
-           <!-- Filter -->
-            <select id="statusFilter">
-                <option value="">All</option>
-                <?php
-                $statusQuery = "SELECT DISTINCT category_value FROM categories WHERE category_type = 'account_status'";
-                $statusResult = mysqli_query($conn, $statusQuery);
-                if ($statusResult && mysqli_num_rows($statusResult) > 0) {
-                    while ($statusRow = mysqli_fetch_assoc($statusResult)) {
-                        echo "<option value='{$statusRow['category_value']}'>{$statusRow['category_value']}</option>";
-                    }
-                }
-                ?>
-            </select>
-        </div>
+
         <?php
 // Display success message
 if (isset($_GET['message'])) {
@@ -244,6 +383,21 @@ if (isset($_GET['delete_status'])) {
 
         <!-- Table -->
         <div class="table-container">
+                    
+           <!-- Status Filter -->
+           <select id="statusFilter">
+                <option value="">All</option>
+                <?php
+                $statusQuery = "SELECT DISTINCT category_value FROM categories WHERE category_type = 'account_status'";
+                $statusResult = mysqli_query($conn, $statusQuery);
+                if ($statusResult && mysqli_num_rows($statusResult) > 0) {
+                    while ($statusRow = mysqli_fetch_assoc($statusResult)) {
+                        echo "<option value='{$statusRow['category_value']}'>{$statusRow['category_value']}</option>";
+                    }
+                }
+                ?>
+            </select>
+     
             <table id="residentTable" class="table table-bordered">
                 <thead>
                     <tr>
