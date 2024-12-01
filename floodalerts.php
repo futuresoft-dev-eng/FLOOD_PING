@@ -6,78 +6,95 @@
     <title>Flood Alerts</title>
     <link rel="icon" href="./images/Floodpinglogo.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+   <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
         }
+        h5{
+            color: #02476A;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .trending-up {
+            color: #EA3323;
+        }
+        .trending-down {
+            color: #0BA4D7;
+        }
+        .stable {
+            color: #808080;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
 
+        /* MODAL TO */
         .container {
             padding: 20px;
         }
-
         .modal-body {
             display: flex;
             flex-direction: column;
             gap: 50px;
         }
-
         .top-section {
             display: flex;
             gap: 20px;
         }
-
         .top-left, .top-right, .bottom {
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 20px;
             background-color: #fff;
         }
-
         .top-left {
             flex: 2;
         }
-
         .top-right {
             flex: 1;
         }
-
         .bottom {
             width: 100%;
         }
-
         .info-box {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-
-        .info-box div {
+       .info-box div {
             flex: 1;
             text-align: center;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-
         .info-box div h5 {
             margin: 0;
             font-size: 18px;
         }
-
         .info-box div span {
             font-size: 12px;
             color: #6c757d;
         }
-
         .mark-buttons {
             display: flex;
             gap: 10px;
         }
-
-        .mark-buttons button {
+       .mark-buttons button {
             width: 100px;
         }
     </style>
@@ -87,13 +104,145 @@
 session_start();
 include_once('db_conn.php');
 include('./sidebar.php');
+$sql_new_alerts = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;";
+$result_new_alerts = $conn->query($sql_new_alerts);
 ?>
 
+
+
 <div class="container mt-5">
-    <button type="button" style="background-color: #59C447; border: none;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#floodAlertModal">
-        REVIEW ALERT
-    </button>
-</div>
+
+<h5>NEW FLOOD ALERTS</h5>
+<?php
+// Fetch new flood alerts
+$sql_new_alerts = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;";
+$result_new_alerts = $conn->query($sql_new_alerts);
+
+if ($result_new_alerts->num_rows > 0) {
+    echo '<table>';
+    echo '<thead>
+            <tr>
+                <th>Flood Alert ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Height</th>
+                <th>Height Rate</th>
+                <th>Flow</th>
+                <th>Water Level</th>
+                <th>Action</th>
+            </tr>
+          </thead>';
+    echo '<tbody>';
+
+    $rows = $result_new_alerts->fetch_all(MYSQLI_ASSOC);
+    $defaultMeter = 1.0;
+
+    for ($i = 0; $i < count($rows); $i++) {
+        $id = $rows[$i]['id'];
+        $timestamp = $rows[$i]['timestamp'];
+        $meters = $rows[$i]['meters'];
+        $rate = $rows[$i]['rate'];
+        $alert_level = $rows[$i]['alert_level'];
+        $status = $rows[$i]['status'];
+        $date = date("m/d/Y", strtotime($timestamp));
+        $time = date("g:i:s A", strtotime($timestamp));
+
+        // Determine waterflow trend
+        $previousMeters = $i > 0 ? $rows[$i - 1]['meters'] : $defaultMeter;
+        $nextMeters = $rows[$i + 1]['meters'] ?? $defaultMeter;
+        $flow = ($meters > $nextMeters)
+            ? '<span class="material-symbols-rounded trending-up">trending_up</span>'
+            : (($meters < $nextMeters)
+                ? '<span class="material-symbols-rounded trending-down">trending_down</span>'
+                : '<span class="material-symbols-rounded stable">stable</span>');
+
+        // Map alert levels
+        $alertMapping = [
+            "NORMAL LEVEL" => "NORMAL",
+            "LOW LEVEL" => "LOW",
+            "MEDIUM LEVEL" => "MODERATE",
+            "CRITICAL LEVEL" => "CRITICAL"
+        ];
+        $mappedAlertLevel = $alertMapping[$alert_level] ?? $alert_level;
+
+        // Render table row
+        echo "<tr>
+                <td>{$id}</td>
+                <td>{$date}</td>
+                <td>{$time}</td>
+                <td>{$status}</td>
+                <td>{$meters} m</td>
+                <td>{$rate} m/min</td>
+                <td>{$flow}</td>
+                <td>{$mappedAlertLevel}</td>
+                <td>
+                    <button type=\"button\" class=\"btn btn-primary review-alert\" 
+                        style=\"background-color: #59C447; border: none;\" 
+                        data-bs-toggle=\"modal\" 
+                        data-bs-target=\"#floodAlertModal\" 
+                        data-id=\"{$id}\">
+                        REVIEW ALERT
+                    </button>
+                </td>
+              </tr>";
+    }
+
+    echo '</tbody>';
+    echo '</table>';
+} else {
+    echo "<p>No data available.</p>";
+}
+?>
+
+<br>
+<br>
+<h5> RECENT VERIFIED FLOOD ALERTS</h5>
+<?php
+// Fetch verified flood alerts
+$sql_verified_alerts = "SELECT * FROM flood_alerts WHERE alert_status = 'Verified'";
+$result_verified_alerts = $conn->query($sql_verified_alerts);
+
+echo '<table border="1">';
+echo '<thead>
+        <tr>
+            <th>Flood Alert ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Water Level</th>
+            <th>Flow</th>
+            <th>Height</th>
+            <th>Height Rate</th>
+            <th>SMS Status</th>
+            <th>SMS Status Reason</th>
+            <th>Action</th>
+        </tr>
+      </thead>';
+echo '<tbody>';
+
+if ($result_verified_alerts->num_rows > 0) {
+    while ($row = $result_verified_alerts->fetch_assoc()) {
+        echo '<tr>
+                <td>' . htmlspecialchars($row["flood_alert_id"]) . '</td>
+                <td>' . htmlspecialchars($row["date"]) . '</td>
+                <td>' . htmlspecialchars($row["time"]) . '</td>
+                <td>' . htmlspecialchars($row["water_level"]) . '</td>
+                <td>' . htmlspecialchars($row["flow"]) . '</td>
+                <td>' . htmlspecialchars($row["height"]) . '</td>
+                <td>' . htmlspecialchars($row["height_rate"]) . '</td>
+                <td>' . htmlspecialchars($row["sms_status"]) . '</td>
+                <td>' . htmlspecialchars($row["sms_status_reason"]) . '</td>
+                <td><button>VIEW</button></td>
+              </tr>';
+    }
+} else {
+    echo '<tr><td colspan="10" style="text-align: center;">No records found</td></tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+?>
+
 
 <!-- Modal: Flood Alert Management -->
 <div class="modal fade" id="floodAlertModal" tabindex="-1" aria-labelledby="floodAlertModalLabel" aria-hidden="true">
@@ -139,8 +288,8 @@ include('./sidebar.php');
                         </div>
                     </div>
                     <div class="top-right">
-                        <h6>SUMMARY</h6>
-                        <table class="table table-bordered">
+                        <p>SUMMARY</p>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Flood Alert ID</th>
@@ -149,13 +298,18 @@ include('./sidebar.php');
                                     <th>SMS Status Reason</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>0000062</td>
-                                    <td>Verified</td>
-                                    <td>SMS Sent</td>
-                                    <td>Required</td>
-                                </tr>
+                            <tbody id="summaryTableBody">
+                                <?php
+                                foreach ($rows as $row) {
+                                    $id = $row['id'];
+                                    echo "<tr id='row_{$id}'>
+                                            <td>{$id}</td>
+                                            <td id='status_{$id}'></td>
+                                            <td id='sms_{$id}'></td>
+                                            <td id='sms_reason_{$id}'></td>
+                                          </tr>";
+                                }
+                                ?>
                             </tbody>
                         </table>
                         <div class="modal-footer">
@@ -163,42 +317,76 @@ include('./sidebar.php');
                             <button type="button" class="btn btn-danger" onclick="window.location.href='floodalerts.php'">Cancel</button>
 
                             <!-- Confirm -->
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#sendSmsModal" id="confirmButton">Confirm</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#sendSmsModal" id="confirmButton" disabled >Confirm</button>
                         </div>
                     </div>
                 </div>
                 <!-- Bottom  -->
                 <div class="bottom mt-3">
-                    <h6>Verify the Flood Alert(s) Below:</h6>
-                    <table class="table table-bordered">
+                    <p>VERIFY THE FLOOD ALERT(S) BELOW:</p>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Flood Alert ID</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th>Water Level</th>
-                                <th>Flow</th>
+                                <th>Status</th>
                                 <th>Height</th>
-                                <th>Flood Alert Status</th>
-                                <th>MARK AS</th>
+                                <th>Height Rate</th>
+                                <th>Flow</th>
+                                <th>Water Level</th>
+                                <th>Mark As:</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>0000062</td>
-                                <td>20 Oct 2024</td>
-                                <td>11:01 AM</td>
-                                <td>MODERATE</td>
-                                <td>⬆</td>
-                                <td>13 meters</td>
-                                <td>New</td>
-                                <td>
-                                    <div class="mark-buttons">
-                                        <button class="btn btn-danger btn-sm">False Alert</button>
-                                        <button class="btn btn-success btn-sm">Verified</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?php
+                            foreach ($rows as $index => $row) {
+                                $id = $row['id'];
+                                $timestamp = $row['timestamp'];
+                                $meters = $row['meters'];
+                                $rate = $row['rate'];
+                                $alert_level = $row['alert_level'];
+                                $status = $row['status'];
+                                $date = date("m/d/Y", strtotime($timestamp));
+                                $time = date("g:i:s A", strtotime($timestamp));
+
+                                $flow = ($index == 0)
+                                    ? (($meters > $defaultMeter) 
+                                        ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
+                                        : (($meters < $defaultMeter) 
+                                            ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
+                                            : '<span class="material-symbols-rounded stable">stable</span>'))
+                                    : (($meters > ($rows[$index + 1]['meters'] ?? $defaultMeter)) 
+                                        ? '<span class="material-symbols-rounded trending-up">trending_up</span>' 
+                                        : (($meters < ($rows[$index + 1]['meters'] ?? $defaultMeter)) 
+                                            ? '<span class="material-symbols-rounded trending-down">trending_down</span>' 
+                                            : '<span class="material-symbols-rounded stable">stable</span>'));
+
+                                $alertMapping = [
+                                    "NORMAL LEVEL" => "NORMAL",
+                                    "LOW LEVEL" => "LOW",
+                                    "MEDIUM LEVEL" => "MODERATE",
+                                    "CRITICAL LEVEL" => "CRITICAL"
+                                ];
+                                $mappedAlertLevel = $alertMapping[$alert_level] ?? $alert_level;
+
+                                echo "<tr>
+                                        <td>{$id}</td>
+                                        <td>{$date}</td>
+                                        <td>{$time}</td>
+                                        <td>{$status}</td>
+                                        <td>{$meters} m</td>
+                                        <td>{$rate} m/min</td>
+                                        <td>{$flow}</td>
+                                        <td>{$mappedAlertLevel}</td>
+                                        <td>
+                                            <button id='falseAlarmBtn_{$id}' onclick='toggleFalseAlarm({$id})'>False Alarm</button>
+                                            <button id='verifyBtn_{$id}' onclick='verifyAlert({$id}, \"{$mappedAlertLevel}\")' data-mapped-alert-level='{$mappedAlertLevel}'>Verified</button>
+                                        </td>
+                                      </tr>";
+                            }
+                            $mostRecentAlertId = isset($rows[0]) ? $rows[0]['id'] : null;
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -249,6 +437,58 @@ include('./sidebar.php');
         const modalInstance = bootstrap.Modal.getInstance(floodAlertModal);
         modalInstance.hide();
     });
+
+    const statusCells = document.querySelectorAll('[id^="status_"]');
+    const smsStatusCells = document.querySelectorAll('[id^="sms_"]');
+    const smsReasonCells = document.querySelectorAll('[id^="sms_reason_"]');
+
+    function toggleFalseAlarm(id) {
+        const falseAlarmButton = document.getElementById('falseAlarmBtn_' + id);
+        const verifyButton = document.getElementById('verifyBtn_' + id);  
+
+        if (!falseAlarmButton.classList.contains('clicked')) {
+            falseAlarmButton.classList.add('clicked');
+            verifyButton.classList.remove('clicked'); 
+            updateStatus(id, 'False Alarm', 'No SMS', 'False Alarm'); 
+        } else {
+            falseAlarmButton.classList.remove('clicked');
+            updateStatus(id, '', '', '');
+        }
+
+        checkConfirmButtonState(); 
+    }
+
+    function verifyAlert(id, mappedAlertLevel) {
+        const verifyButton = document.getElementById('verifyBtn_' + id);
+        const falseAlarmButton = document.getElementById('falseAlarmBtn_' + id);  
+
+        if (!verifyButton.classList.contains('clicked')) {
+            verifyButton.classList.add('clicked');
+            falseAlarmButton.classList.remove('clicked');
+
+            updateStatus(id, 'Verified', 'SMS Sent', 'Required');
+        } else {
+            verifyButton.classList.remove('clicked');
+            updateStatus(id, '', '', '');
+        }
+
+        checkConfirmButtonState();
+    }
+
+    function updateStatus(id, status, smsStatus, smsReason) {
+        const statusCell = document.getElementById('status_' + id);
+        const smsStatusCell = document.getElementById('sms_' + id);
+        const smsReasonCell = document.getElementById('sms_reason_' + id);
+
+        statusCell.innerText = status;
+        smsStatusCell.innerText = smsStatus;
+        smsReasonCell.innerText = smsReason;
+
+        checkConfirmButtonState(); 
+    }
+
+    function checkConfirmButtonState() {
+        const isAllFilled = [...statusCells, ...smsStatusCells, ...smsReasonCells].every(cell => cell.innerText.trim() !== '');
+        confirmButton.disabled = !isAllFilled;
+    }
 </script>
-</body>
-</html>

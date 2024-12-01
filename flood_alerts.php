@@ -1,22 +1,3 @@
-<?php
-$servername = "localhost"; 
-$username = "root";
-$password = "";
-$dbname = "floodping";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-
-$sql_new_alerts = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;";
-$result_new_alerts = $conn->query($sql_new_alerts);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,6 +82,13 @@ $result_new_alerts = $conn->query($sql_new_alerts);
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
+    <?php
+session_start();
+include_once('db_conn.php');
+$sql_new_alerts = "SELECT * FROM sensor_data WHERE status = 'NEW' ORDER BY id DESC, timestamp DESC;";
+$result_new_alerts = $conn->query($sql_new_alerts);
+?>
+
     <p>NEW FLOOD ALERTS</p>
     <?php
     // Fetch new flood alerts

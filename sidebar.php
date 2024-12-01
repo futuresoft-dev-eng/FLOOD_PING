@@ -244,7 +244,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         <a href="livecam.php" class="nav-link">
             <span class="material-symbols-rounded">videocam</span>
         </a>
-        <a href="floodalerts.php" class="nav-link">
+        <a href="flood_alerts.php" class="nav-link">
             <span class="material-symbols-rounded">notifications_active</span>
         </a>
         <a href="smsalerts.php" class="nav-link">
@@ -293,7 +293,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 
                 <div class="section-title">Alerts Management</div>
                 <li class="nav-item">
-                    <a href="floodalerts.php" class="nav-link">
+                    <a href="flood_alerts.php" class="nav-link">
                         <span class="material-symbols-rounded">notifications_active</span> <span class="icon-text">Flood Alerts</span>
                     </a>
                 </li>
