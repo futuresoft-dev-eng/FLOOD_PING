@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2024 at 05:01 AM
+-- Generation Time: Dec 01, 2024 at 12:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -158,24 +158,56 @@ CREATE TABLE `residents` (
   `civil_status_id` int(11) DEFAULT NULL,
   `health_status_id` int(11) DEFAULT NULL,
   `sex_id` int(11) DEFAULT NULL,
-  `socioeconomic_category_id` int(11) DEFAULT NULL
+  `socioeconomic_category_id` int(11) DEFAULT NULL,
+  `registered_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `residents`
 --
 
-INSERT INTO `residents` (`id`, `first_name`, `middle_name`, `last_name`, `suffix`, `date_of_birth`, `mobile_number`, `email_address`, `house_lot_number`, `street_subdivision_name`, `barangay`, `municipality`, `profile_photo_path`, `account_status_id`, `civil_status_id`, `health_status_id`, `sex_id`, `socioeconomic_category_id`) VALUES
-(1, 'ROSE ANN', 'DE VERA', 'DOMINGO', NULL, '2004-11-04', '09106411147', 'roseanndevera079@gmail.com', '10', '10', 'Bagbag', 'Quezon City', './uploads/photo_6215426656886176412_x.jpg', 1, 6, 16, 23, 14),
-(2, 'DANIEL JOHN', 'ARTIOLA', 'DOROTEO', '', '2001-08-17', '09123654789', 'mine@gmail.com', '6', 'Secret', 'Bagbag', 'Quezon City', './uploads/taee.jpg', 1, 3, 15, 23, 7),
-(3, 'Pinky', 'Gutom', 'Na ako ', 'Weh', '2000-01-28', '09365471589', 'sd@gmail.com', '6', 'Asd', 'Bagbag', 'Quezon city', './uploads/Pink and Black Pastel Floral Teacher Student School Desktop Wallpaper Background.png', 1, 3, 15, 24, 7),
-(4, 'John', 'A.', 'Doe', NULL, '1990-01-01', '09103547896', 'johndoe@gmail.com', '123', 'Sunset St.', 'Bagbag', 'Quezon City', NULL, 1, 3, 15, 23, 7),
-(5, 'Jane', 'B.', 'Smith', 'Jr.', '1985-05-15', '09103547897', 'janesmith@gmail.com', '456', 'Maple Ave.', 'Bagbag', 'Quezon City', NULL, 1, 4, 16, 24, 8),
-(6, 'Alice', 'C.', 'Johnson', NULL, '1992-07-20', '09103547898', 'alicej@gmail.com', '789', 'Oak Blvd.', 'Bagbag', 'Quezon City', NULL, 2, 3, 17, 23, 9),
-(7, 'Bob', 'D.', 'Brown', NULL, '1988-12-10', '09103547891', 'bobbrown@gmail.com', '321', 'Pine St.', 'Bagbag', 'Quezon City', NULL, 1, 4, 18, 24, 10),
-(8, 'Charlie', 'E.', 'Davis', NULL, '1995-03-25', '09103547892', 'charlied@gmail.com', '654', 'Elm St.', 'Bagbag', 'Quezon City', NULL, 1, 5, 19, 23, 11),
-(9, 'Diana', 'F.', 'Miller', 'III', '1993-09-09', '09103547893', 'dianam@gmail.com', '987', 'Cedar Ave.', 'Bagbag', 'Quezon City', NULL, 2, 6, 20, 24, 12),
-(10, 'Evan', 'G.', 'Wilson', NULL, '1997-11-30', '09103547894', 'evanw@gmail.com', '159', 'Birch Dr.', 'Bagbag', 'Quezon City', NULL, 2, 3, 21, 23, 13);
+INSERT INTO `residents` (`id`, `first_name`, `middle_name`, `last_name`, `suffix`, `date_of_birth`, `mobile_number`, `email_address`, `house_lot_number`, `street_subdivision_name`, `barangay`, `municipality`, `profile_photo_path`, `account_status_id`, `civil_status_id`, `health_status_id`, `sex_id`, `socioeconomic_category_id`, `registered_at`) VALUES
+(1, 'ROSE ANN', 'DE VERA', 'DOMINGO', NULL, '2004-11-04', '09106411147', 'roseanndevera079@gmail.com', '10', '10', 'Bagbag', 'Quezon City', './uploads/photo_6215426656886176412_x.jpg', 2, 6, 16, 23, 14, '2024-12-01 10:53:32'),
+(2, 'DANIEL JOHN', 'ARTIOLA', 'DOROTEO', '', '2001-08-17', '09123654789', 'mine@gmail.com', '6', 'Secret', 'Bagbag', 'Quezon City', './uploads/taee.jpg', 1, 3, 15, 23, 7, '2024-12-01 10:53:32'),
+(15, 'Dee', 'A', 'Dor', 'Hello', '1993-08-17', '09321456574', 'sd@gmail.com', '6', 'Quezon city', 'Bagbag', 'Quezon city', './uploads/taeee.jpg', 2, 3, 15, 23, 7, '2024-12-01 10:53:32'),
+(27, 'John', 'A.', 'Doe', NULL, '1990-01-01', '09103547896', 'johndoe@gmail.com', '123', 'Sunset St.', 'Bagbag', 'Quezon City', NULL, 1, 3, 15, 23, 7, '2024-12-01 10:56:09'),
+(28, 'Jane', 'B.', 'Smith', 'Jr.', '1985-05-15', '09103547897', 'janesmith@gmail.com', '456', 'Maple Ave.', 'Bagbag', 'Quezon City', NULL, 1, 4, 16, 24, 8, '2024-12-01 10:56:09'),
+(29, 'Alice', 'C.', 'Johnson', NULL, '1992-07-20', '09103547898', 'alicej@gmail.com', '789', 'Oak Blvd.', 'Bagbag', 'Quezon City', NULL, 1, 3, 17, 23, 9, '2024-12-01 10:56:09'),
+(30, 'Bob', 'D.', 'Brown', NULL, '1988-12-10', '09103547891', 'bobbrown@gmail.com', '321', 'Pine St.', 'Bagbag', 'Quezon City', NULL, 1, 4, 18, 24, 10, '2024-12-01 10:56:09'),
+(31, 'Charlie', 'E.', 'Davis', NULL, '1995-03-25', '09103547892', 'charlied@gmail.com', '654', 'Elm St.', 'Bagbag', 'Quezon City', NULL, 1, 5, 19, 23, 11, '2024-12-01 10:56:09'),
+(32, 'Diana', 'F.', 'Miller', 'III', '1993-09-09', '09103547893', 'dianam@gmail.com', '987', 'Cedar Ave.', 'Bagbag', 'Quezon City', NULL, 1, 6, 20, 24, 12, '2024-12-01 10:56:09'),
+(33, 'Evan', 'G.', 'Wilson', NULL, '1997-11-30', '09103547894', 'evanw@gmail.com', '159', 'Birch Dr.', 'Bagbag', 'Quezon City', NULL, 1, 3, 21, 23, 13, '2024-12-01 10:56:09'),
+(34, 'Fiona', 'H.', 'Clark', NULL, '1994-06-06', '09103547895', 'fionac@gmail.com', '753', 'Spruce Way', 'Bagbag', 'Quezon City', NULL, 1, 4, 22, 24, 14, '2024-12-01 10:56:10'),
+(35, 'George', 'I.', 'Lewis', NULL, '1987-08-18', '09103647896', 'georgel@gmail.com', '951', 'Willow Rd.', 'Bagbag', 'Quezon City', NULL, 1, 5, 15, 23, 7, '2024-12-01 10:56:10'),
+(36, 'Hannah', 'J.', 'Martinez', NULL, '1991-02-14', '09103247892', 'hannahm@gmail.com', '852', 'Aspen Ln.', 'Bagbag', 'Quezon City', NULL, 1, 6, 16, 24, 8, '2024-12-01 10:56:10'),
+(37, 'John', 'A.', 'Doe', NULL, NULL, '09171234567', 'john.doe@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-15 02:00:00'),
+(38, 'Jane', 'B.', 'Smith', NULL, NULL, '09181234567', 'jane.smith@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22 06:30:00'),
+(39, 'Alice', 'C.', 'Brown', NULL, NULL, '09191234567', 'alice.brown@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-02-10 01:45:00'),
+(40, 'Bob', 'D.', 'White', NULL, NULL, '09201234567', 'bob.white@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-02-18 08:15:00'),
+(41, 'Charlie', 'E.', 'Green', NULL, NULL, '09211234567', 'charlie.green@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-05 00:30:00'),
+(42, 'Diana', 'F.', 'Black', NULL, NULL, '09221234567', 'diana.black@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-25 11:00:00'),
+(43, 'Evan', 'G.', 'Gray', NULL, NULL, '09231234567', 'evan.gray@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-02 03:00:00'),
+(44, 'Faith', 'H.', 'Clark', NULL, NULL, '09241234567', 'faith.clark@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-14 05:15:00'),
+(45, 'George', 'I.', 'Adams', NULL, NULL, '09251234567', 'george.adams@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-29 09:40:00'),
+(46, 'Hannah', 'J.', 'Lopez', NULL, NULL, '09261234567', 'hannah.lopez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-05 02:20:00'),
+(47, 'Ian', 'K.', 'Reed', NULL, NULL, '09271234567', 'ian.reed@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-16 07:30:00'),
+(48, 'Jade', 'L.', 'Young', NULL, NULL, '09281234567', 'jade.young@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-24 10:10:00'),
+(49, 'Kyle', 'M.', 'Perez', NULL, NULL, '09291234567', 'kyle.perez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-30 04:50:00'),
+(50, 'Liam', 'N.', 'Hill', NULL, NULL, '09301234567', 'liam.hill@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-07 00:00:00'),
+(51, 'Mia', 'O.', 'Scott', NULL, NULL, '09311234567', 'mia.scott@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-15 06:25:00'),
+(52, 'Nathan', 'P.', 'King', NULL, NULL, '09321234567', 'nathan.king@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-20 01:30:00'),
+(53, 'Olivia', 'Q.', 'Torres', NULL, NULL, '09331234567', 'olivia.torres@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-03 23:45:00'),
+(54, 'Paul', 'R.', 'Hernandez', NULL, NULL, '09341234567', 'paul.hernandez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-18 11:10:00'),
+(55, 'Quinn', 'S.', 'Wright', NULL, NULL, '09351234567', 'quinn.wright@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-25 02:35:00'),
+(56, 'Ruby', 'T.', 'Martinez', NULL, NULL, '09361234567', 'ruby.martinez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-03 06:00:00'),
+(57, 'Samuel', 'U.', 'Garcia', NULL, NULL, '09371234567', 'samuel.garcia@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-15 01:15:00'),
+(58, 'Tina', 'V.', 'Ramirez', NULL, NULL, '09381234567', 'tina.ramirez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-22 08:40:00'),
+(59, 'Victor', 'W.', 'Cruz', NULL, NULL, '09391234567', 'victor.cruz@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-10 03:15:00'),
+(60, 'Wendy', 'X.', 'Flores', NULL, NULL, '09401234567', 'wendy.flores@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-18 06:50:00'),
+(61, 'Xander', 'Y.', 'Morales', NULL, NULL, '09411234567', 'xander.morales@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-05 01:00:00'),
+(62, 'Yvonne', 'Z.', 'Gutierrez', NULL, NULL, '09421234567', 'yvonne.gutierrez@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-20 09:20:00'),
+(63, 'Zane', 'A.', 'Rivera', NULL, NULL, '09431234567', 'zane.rivera@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-12 03:30:00'),
+(64, 'Anna', 'B.', 'Diaz', NULL, NULL, '09441234567', 'anna.diaz@gmail.com', NULL, NULL, 'Bagbag', 'Quezon City', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-25 06:10:00');
 
 --
 -- Triggers `residents`
@@ -333,7 +365,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `user_id`, `first_name`, `middle_name`, `last_name`, `suffix`, `contact_no`, `sex`, `birthdate`, `email`, `password`, `role`, `schedule`, `profile_photo`, `shift`, `account_status`, `position`, `house_lot_number`, `street_subdivision_name`, `city`, `barangay`, `failed_attempts`, `last_attempt_date`, `last_attempt_time`) VALUES
 (105, '00001', 'Beomgyu', 'Law', 'Choi', '', '09195738798', 'Male', '2024-03-13', 'beomgyu@gmail.com', '$2y$10$zMAxcmPJ3DQHyeX8CnNgXevkuO1ECMMsp0JZccbIWheYZbBK7AtVa', 'Admin', 'TUE, THU', 'uploads/1732107157_Screenshot 2024-11-13 140048.png', 'Mid Shift', 'Active', 'Executive Officer', 'Blk 2 Lot 19', 'Blas Roque Subdivision', 'Quezon City', 'Bagbag', 0, NULL, NULL),
 (106, '00002', 'Taehyun', 'Law', 'Kang', '', '09303530960', 'Male', '2024-02-05', 'ms4ngela@gmail.com', '$2y$10$C6W4tpImoXtHv1zUSQ8XK.C0oivcVnwZixVSdCvC2JLxYr2hPrHou', 'Local Authority', 'MON, TUE, WED', 'uploads/1732107236_Screenshot 2024-11-13 135944.png', 'Morning Shift', 'Active', 'Executive Officer', 'Blk 2 Lot 19', 'Blas Roque Subdivision', 'Quezon City', 'Bagbag', 0, NULL, NULL),
-(119, '00003', 'Taehyung', 'Mine', 'Kim', '', '09254156354', 'Female', '2024-11-23', 'taehyung@gmail.com', '$2y$10$onZoRjSA2r5Dg2rV8ppEyO2PRkNveRNTHxaV6tHr5eBTDk.lkHH0m', 'Local Authority', NULL, '', NULL, 'Active', 'Executive Officer', '299', 'Asd', 'Quezon City', 'Bagbag', 0, NULL, NULL),
+(119, '00003', 'Taehyung', 'Mine', 'Kim', '', '09254156354', 'Female', '2024-11-23', 'taehyung@gmail.com', '$2y$10$onZoRjSA2r5Dg2rV8ppEyO2PRkNveRNTHxaV6tHr5eBTDk.lkHH0m', 'Local Authority', NULL, '', NULL, 'Active', 'Executive Officer', '299', 'asd', 'Quezon City', 'Bagbag', 0, NULL, NULL),
 (120, '00004', 'Rose Ann', 'De Vera', 'Domingo', '', '09124380882', 'Female', '2000-09-23', 'roseanndevera079@gmail.com', '$2y$10$uznZmCQOO7PPVUXisvhn9OUcVjdkoaxAjGvuzaYoFLzzXGBLpZlbG', 'Admin', NULL, '', NULL, 'Active', 'Executive Officer', '299', 'weh', 'Quezon City', 'Bagbag', 0, NULL, NULL);
 
 --
@@ -496,7 +528,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `residents`
 --
 ALTER TABLE `residents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `sensor_data`

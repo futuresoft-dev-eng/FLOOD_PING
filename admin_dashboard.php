@@ -6,6 +6,7 @@
     <title>ADMIN Dashboard</title>
     <link rel="icon" href="./images/Floodpinglogo.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -110,9 +111,16 @@
             color: orange;
             font-weight: bold;
         }
-
+        .station-info h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
         .station-info {
             text-align: center;
+            color: #666;
+            margin-bottom: 20px;
         }
 
         .station-info img {
@@ -131,14 +139,21 @@
         }
 
         .info-buttons .watch-live {
-            background-color: #28a745;
+            background-color: #59C447;
             color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-
-        .info-buttons .view-alerts {
-            background-color: #007bff;
-            color: white;
-        }
+        .info-buttons .watch-live:hover {
+            background-color: white;
+            border: solid 2px #59C447;
+            color: #59C447;
+        }  
     </style>
 </head>
 <body>
@@ -148,37 +163,48 @@
         include_once('db_conn.php');
         date_default_timezone_set('Asia/Manila'); 
 
-// Fetch the number of residents
-$totalResidents = 0;
+        $totalResidents = 0;
+        $activeAccounts = $lockedAccounts = $deactivatedAccounts = 0;
 
-// Query the residents table to count the total number of residents
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM residents");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $totalResidents = $row['total'];
-}
+        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM residents");
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $totalResidents = $row['total'];
+        }
 
+        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Active'");
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $activeAccounts = $row['total'];
+        }
 
-// Active accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Active'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $activeAccounts = $row['total'];
-}
+        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Locked'");
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $lockedAccounts = $row['total'];
+        }
 
-// Locked accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Locked'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $lockedAccounts = $row['total'];
-}
+        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Inactive'");
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $deactivatedAccounts = $row['total'];
+        }
 
-// Deactivated accounts
-$result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users WHERE account_status = 'Inactive'");
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $deactivatedAccounts = $row['total'];
-}
+        $residentData = [];
+        $result = mysqli_query($conn, "
+            SELECT 
+                MONTHNAME(registered_at) AS month, 
+                COUNT(*) AS count 
+            FROM residents 
+            WHERE YEAR(registered_at) = YEAR(CURDATE())
+            GROUP BY MONTH(registered_at)
+            ORDER BY MONTH(registered_at)
+        ");
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $residentData[] = $row;
+            }
+        }
     ?>
     <div class="container">
         <div class="header">
@@ -190,32 +216,31 @@ if ($result) {
             <!-- Left Section -->
             <div class="left-section">
                 <div>
-                <div class="titlee">USERS</div>
-                <div class="dashboard-row">
-                    <div class="card">
-                        <h3>Number of Residents</h3>
-                     <div class="card-value highlight-moderate"><?php echo $totalResidents; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Active Accounts</h3>
-                        <div class="card-value"><?php echo $activeAccounts; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Locked Accounts</h3>
-                        <div style="color:red;" class="card-value"><?php echo $lockedAccounts; ?></div>
-                    </div>
-                    <div class="card">
-                        <h3>Deactivated Accounts</h3>
-                        <div class="card-value"><?php echo $deactivatedAccounts; ?></div>
+                    <div class="titlee">USERS</div>
+                    <div class="dashboard-row">
+                        <div class="card">
+                            <div class="card-value highlight-moderate"><?php echo $totalResidents; ?></div>
+                            <h3>Number of Residents</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-value"><?php echo $activeAccounts; ?></div>
+                            <h3>Active Accounts</h3>
+                        </div>
+                        <div class="card">
+                            <div style="color:red;" class="card-value"><?php echo $lockedAccounts; ?></div>
+                            <h3>Locked Accounts</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-value"><?php echo $deactivatedAccounts; ?></div>
+                            <h3>Deactivated Accounts</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
                 <div>
                     <div class="titlee">RESIDENT REGISTRATION GROWTH</div>
                     <div class="dashboard-row">
-                    <img src="./images/RESIDENT REGISTRATION GROWTH.png" alt="Flood Graph" style="width: 100%; height: auto;">
-          
-                </div>
+                        <canvas id="residentChart" style="width: 100%; height: auto;"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -223,16 +248,52 @@ if ($result) {
             <div class="right-section">
                 <div class="titlee">Flood Height Point Graph</div>
                 <img src="./images/floodgraph.png" alt="Flood Graph" style="width: 100%; height: auto;">
-                <div style="background-color: white; border-radius: 8px;   text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 50px; font-size: 14px; color: gray;"><b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
-      
-            <div class="station-info">
+                <div style="background-color: white; border-radius: 8px; text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 50px; margin-bottom: 50px; font-size: 14px; color: gray;">
+                    <b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)
+                </div>
+
+                <div class="station-info">
                     <img src="./images/darius.png" alt="Station Image">
                     <h3>DARIUS CREEK</h3>
                     <p><strong>Station Location:</strong> Near Santolan Street</p>
                     <div class="info-buttons">
                         <button class="watch-live">WATCH LIVESTREAM</button>
                     </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        
+        const labels = <?php echo json_encode(array_column($residentData, 'month')); ?>;
+        const data = <?php echo json_encode(array_column($residentData, 'count')); ?>;
+
+       
+        const ctx = document.getElementById('residentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Resident Registrations',
+                    data: data,
+                    borderColor: '#02476A',
+                    backgroundColor: 'rgba(2, 71, 106, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

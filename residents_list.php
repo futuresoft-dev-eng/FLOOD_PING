@@ -290,7 +290,7 @@ include('./adminsidebar-accountservices.php');
 
 <div class="buttons-container">
     <button class="navigation-btn" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'add_user.php')">User Accounts</button>
-    <button class="navigation-btn active" id="residentsBtn" onclick="activateButton('residentsBtn', 'accountservices.php')">Resident List</button>
+    <button class="navigation-btn active" id="residentsBtn" onclick="activateButton('residentsBtn', 'residents_list.php')">Resident List</button>
     <button class="navigation-btn" id="archiveBtn" onclick="activateButton('residentsBtn', 'archive_account.php')">Archive</button>
 </div>
 
