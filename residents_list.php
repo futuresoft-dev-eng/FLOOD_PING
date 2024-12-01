@@ -1,11 +1,17 @@
 
+<?php
+session_start();
+include_once('db_conn.php');
+include('./adminsidebar-accountservices.php');
+
+?>
 <title>Residents List</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <style>
- .main-content {
+    .main-content {
         margin-left: 30px; 
         padding: 20px;
     }
@@ -184,6 +190,7 @@
     button:disabled, .export-btn:disabled {
         background-color: #C5C5C5;
         pointer-events: none; 
+        cursor: not-allowed !important;
     }
    
     #selectedCount {
@@ -221,7 +228,7 @@
     }
 
     .navigation-btn {
-        min-width: 456px;
+        min-width: 400px;
         height: 50px;
         background-color: #FFFFFF;
         color: #02476A;
@@ -275,13 +282,8 @@
             }
         }
 </style>
-
-<?php
-include 'db_conn.php';
-include 'adminsidebar-accountservices.php';
-?>
 <main class="main-content">
-<div class="title">
+    <div class="title">
     <h3>RESIDENT MANAGEMENT</h3>
 </div>
 <hr style="color: gray; width: 90%; position: absolute; margin: 30px 0px 0px 40px;">
@@ -292,11 +294,11 @@ include 'adminsidebar-accountservices.php';
     <button class="navigation-btn" id="archiveBtn" onclick="activateButton('residentsBtn', 'archive_account.php')">Archive</button>
 </div>
 
-    <div class="container">
+<div class="container">
         <form id="importForm" action="import_excel.php" method="post" enctype="multipart/form-data" style="display: none;">
             <input type="file" name="file" id="fileInput" accept=".xls, .xlsx" required>
         </form>
-
+        
         <?php
 // Display success message
 if (isset($_GET['message'])) {
@@ -381,23 +383,21 @@ if (isset($_GET['delete_status'])) {
 ?>
 
 
-        <!-- Table -->
-        <div class="table-container">
-                    
-           <!-- Status Filter -->
-           <select id="statusFilter">
-                <option value="">All</option>
-                <?php
-                $statusQuery = "SELECT DISTINCT category_value FROM categories WHERE category_type = 'account_status'";
-                $statusResult = mysqli_query($conn, $statusQuery);
-                if ($statusResult && mysqli_num_rows($statusResult) > 0) {
-                    while ($statusRow = mysqli_fetch_assoc($statusResult)) {
-                        echo "<option value='{$statusRow['category_value']}'>{$statusRow['category_value']}</option>";
-                    }
-                }
-                ?>
-            </select>
-     
+<div class="table-container">
+    <!-- Status Filter -->
+    <select id="statusFilter" style="margin-bottom: 15px; padding: 5px; border-radius: 5px; border: 1px solid #02476A; color: #02476A;">
+        <option value="">All</option>
+        <?php
+        $statusQuery = "SELECT DISTINCT category_value FROM categories WHERE category_type = 'account_status'";
+        $statusResult = mysqli_query($conn, $statusQuery);
+        if ($statusResult && mysqli_num_rows($statusResult) > 0) {
+            while ($statusRow = mysqli_fetch_assoc($statusResult)) {
+                echo "<option value='{$statusRow['category_value']}'>{$statusRow['category_value']}</option>";
+            }
+        }
+        ?>
+    </select>
+            
             <table id="residentTable" class="table table-bordered">
                 <thead>
                     <tr>
@@ -476,6 +476,7 @@ if (isset($_GET['delete_status'])) {
             </form>
     </div>
 </main>
+
 <script>
 $(document).ready(function () {
     const table = $('#residentTable').DataTable({
@@ -577,4 +578,21 @@ $(document).ready(function () {
         toggleButtons();  
     });
 });
+
+function activateButton(buttonId, redirectUrl) {
+        // Remove the active class from all buttons
+        const buttons = document.querySelectorAll('.navigation-btn');
+        buttons.forEach((btn) => {
+            btn.classList.remove('active');
+        });
+
+        // Add the active class to the clicked button
+        const activeButton = document.getElementById(buttonId);
+        activeButton.classList.add('active');
+
+        // Redirect to the provided URL
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    }
 </script>

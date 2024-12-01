@@ -1,0 +1,219 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+#include <SoftwareSerial.h>
+
+// LCD Setup
+LiquidCrystal_I2C lcd(0x27, 16, 2); // I2C address, columns, rows
+
+// Ultrasonic Sensor Pins
+const int TRIG_PIN = D5; // GPIO14
+const int ECHO_PIN = D6; // GPIO12
+
+// LED Pins
+const int YELLOW_LED = D7; // GPIO13
+const int ORANGE_LED = D8; // GPIO15
+const int RED_LED = D9;    // GPIO3
+
+// Buzzer Pin
+const int BUZZER_PIN = D4; // GPIO2
+
+// SIM800L Pins and Setup
+#define SIM800_TX D3
+#define SIM800_RX D2
+SoftwareSerial sim800(SIM800_RX, SIM800_TX);
+
+// Wi-Fi credentials
+//const char* ssid = "GlobeAtHome_8B273";
+//const char* password = "79kSXTk6";
+
+const char* ssid = "RUFO";
+const char* password = "rufo14310421";
+
+// Variables for smoothing and stability
+const int NUM_READINGS = 5;
+float readings[NUM_READINGS] = {0};
+int readingIndex = 0;
+float total = 0.0;
+unsigned long lastDetectionTime = 0; // Store the last detection timestamp
+const unsigned long detectionInterval = 10000; // 10 seconds in milliseconds
+
+// Variables for rate calculation
+float previousHeight = 0.0;
+
+// Flags for SMS/Call
+bool orangeAlertSent = false;
+bool redAlertSent = false;
+
+void setup() {
+  Serial.begin(115200);
+  sim800.begin(9600); // Initialize SIM800L
+  
+  connectToWiFi();
+
+  // Initialize LCD
+  lcd.begin();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Initializing...");
+
+  // Configure sensor and output pins
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(YELLOW_LED, OUTPUT);
+  pinMode(ORANGE_LED, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+
+  delay(1000);
+  lcd.clear();
+
+  // Initialize GSM module
+  initializeSIM800();
+}
+
+void loop() {
+ // Check if 90 seconds have passed
+  if (millis() - lastDetectionTime >= detectionInterval) {
+    lastDetectionTime = millis(); // Update the last detection time
+
+    float filteredHeight = getFilteredHeight();
+
+    // Compute Speed Rate directly
+    float rate = filteredHeight - previousHeight;
+
+    // Update previous height
+    previousHeight = filteredHeight;
+
+    // Display and send data
+    updateLCD(filteredHeight, rate);
+    sendDataToServer(filteredHeight, rate);
+
+    // Control LEDs, buzzer, and GSM alerts
+    controlLEDsAndGSM(filteredHeight);
+  }
+
+  // Perform other tasks if needed
+}
+
+void connectToWiFi() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("Connected to WiFi!");
+}
+
+float measureHeight() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  float distance = (duration / 2.0) * 0.0343; // Convert to meters
+  return distance / 100.0;
+}
+
+float getFilteredHeight() {
+  total -= readings[readingIndex];
+  readings[readingIndex] = measureHeight();
+  total += readings[readingIndex];
+  readingIndex = (readingIndex + 1) % NUM_READINGS;
+  return total / NUM_READINGS;
+}
+
+void updateLCD(float height, float rate) {
+  lcd.setCursor(0, 0);
+  lcd.print("Height: ");
+  lcd.print(height, 2);
+  lcd.print(" m   ");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Speed Rate: ");
+  lcd.print(rate < 0 ? 0.00 : rate, 2); // Show zero if rate is negative
+  lcd.print(" m");
+}
+
+void controlLEDsAndGSM(float height) {
+  if (height > 0) { // High water level (Safe Zone)
+    digitalWrite(YELLOW_LED, HIGH);
+    digitalWrite(ORANGE_LED, LOW);
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(BUZZER_PIN, LOW);
+    orangeAlertSent = false; // Reset flags for future alerts
+    redAlertSent = false;
+  } else if (height < 0.8 && height => 0) { // Medium water level
+    digitalWrite(YELLOW_LED, LOW);
+    digitalWrite(ORANGE_LED, HIGH);
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(BUZZER_PIN, LOW);
+    if (!orangeAlertSent) {
+      sendSMS("Orange Alert: Water level at medium height!");
+      orangeAlertSent = true;
+    }
+  } else if (height <= 1.5) { // Critical water level
+    digitalWrite(YELLOW_LED, LOW);
+    digitalWrite(ORANGE_LED, LOW);
+    digitalWrite(RED_LED, HIGH);
+    digitalWrite(BUZZER_PIN, HIGH);
+    if (!redAlertSent) {
+      sendSMS("Red Alert: Water level critical!");
+      makeCall();
+      redAlertSent = true;
+    }
+  }
+}
+
+void initializeSIM800() {
+  sim800.println("AT"); // Check module communication
+  delay(1000);
+  sim800.println("AT+CMGF=1"); // Set SMS to text mode
+  delay(1000);
+}
+
+void sendSMS(String message) {
+  sim800.println("AT+CMGS=\"+63912216775\""); // Replace with your number
+  delay(1000);
+  sim800.print(message);
+  delay(100);
+  sim800.write(26); // CTRL+Z to send the message
+  delay(1000);
+  Serial.println("SMS sent: " + message);
+}
+
+void makeCall() {
+  sim800.println("ATD+63912216775;"); // Replace with your number
+  delay(20000); // Wait for 20 seconds before hanging up
+  sim800.println("ATH"); // Hang up
+  Serial.println("Call made and ended.");
+}
+
+void sendDataToServer(float height, float rate) {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi not connected. Skipping data send.");
+    return;
+  }
+
+  String level = (height > 1.5) ? "Safe" : (height > 0.8) ? "Medium" : "Critical";
+
+  HTTPClient http;
+  WiFiClient client;
+  String url = "http://192.168.100.18/FloodPing/db/db_conn.php?height=" + String(height, 2) + 
+               "&rate=" + String(rate < 0 ? 0.00 : rate, 2) + "&level=" + level;
+
+  http.begin(client, url);
+  int httpCode = http.GET();
+  if (httpCode > 0) {
+    Serial.println("Data sent successfully:");
+    Serial.println(http.getString());
+  } else {
+    Serial.println("Error sending data: " + String(httpCode));
+  }
+  http.end();
+}
