@@ -369,7 +369,7 @@ body {
         </div>
         <div class="footer-social">
             <p>For news and updates, follow us on:</p>
-            <a href="https://www.facebook.com" target="_blank" class="social-icon">
+            <a href="https://www.facebook.com/floodping" target="_blank" class="social-icon">
                 <i class="fab fa-facebook-f"></i>
             </a>
             <a href="https://www.instagram.com" target="_blank" class="social-icon">

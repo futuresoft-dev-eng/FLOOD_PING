@@ -1,6 +1,6 @@
 <?php
 include 'db_conn.php';
-include 'adminsidebar.php';
+include 'adminsidebar-shift.php';
 
 $userData = [];
 if (isset($_GET['edit_user_id'])) {
@@ -302,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
 
         #residentTable {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .buttons-container {

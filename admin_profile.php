@@ -4,7 +4,7 @@ include 'db_conn.php';
 include 'adminsidebar.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ./HOME/login.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -45,12 +45,6 @@ if ($stmt) {
     <title>My Account</title>
 
 </head>
-<style>
-
-</style>
-
-
-
 
 <script>
     function toggleEditMode(editMode) {

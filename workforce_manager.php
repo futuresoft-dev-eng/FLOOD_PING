@@ -1,7 +1,6 @@
 <?php
-session_start();
 include 'db_conn.php';
-include 'adminsidebar.php';
+include 'adminsidebar-shift.php';
 
 $userData = [];
 if (isset($_GET['edit_user_id'])) {
@@ -131,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-left: 910px;
+            margin-left: 1000px;
         }
        
         .info-item-id  {
@@ -145,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             height: 35px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin: 180px 0px 0px 145px;
+            margin: 180px 0px 0px 220px;
             font-size: 14px;
         }
 
@@ -157,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             border: 2px solid #02476A; 
             overflow: hidden; 
             display: inline-block; 
-            margin: 80px 0px 0px 1205px;
+            margin: 80px 0px 0px 1370px;
             position: absolute;
             z-index: 100 !important;
         }
@@ -211,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
             cursor: pointer;
             font-size: 14px;
             width: 10%;
-            margin-left: 935px;
+            margin-left: 1040px;
             padding: 6px;
             margin-top: -22px;
             z-index: 100;
@@ -303,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
 
         #residentTable {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .buttons-container {
@@ -316,7 +315,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
         }
 
         .navigation-btn {
-            min-width: 615px;
+            min-width: 683px;
             height: 40px;
             background-color: #FFFFFF;
             color: #02476A;
@@ -397,8 +396,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
         }
 
        #assign-btn:disabled {
-    background-color: #ddd; /* Gray out the button */
-    cursor: not-allowed; /* Change the cursor to indicate the button is disabled */
+            background-color: #ddd; 
+            cursor: not-allowed; 
 }
     </style>
 </head>
@@ -470,19 +469,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['assign_schedule'])) {
                     </label><br>
                 </div>
 
-                <div class="info-item" id="personal" style="margin: 70px 0px 0px -350px; width:210%;">
+                <div class="info-item" id="personal" style="margin: 70px 0px 0px -380px; width:210%;">
                     <p id="job-info-title">Job Description</p>
                     <label id="group-label">Role
                         <input type="text" name="role" value="<?= $userData['role'] ?? '' ?>" readonly>
                     </label><br>
                 </div>
 
-                <div class="info-item" id="personal" style="margin: -70px 0px 0px 280px; width:145%;">
+                <div class="info-item" id="personal" style="margin: -70px 0px 0px 300px; width:145%;">
                     <label id="group-label">Position
                         <input type="text" name="position" value="<?= $userData['position'] ?? '' ?>" readonly>
                     </label><br>
 
-                    <button type="submit" name="assign_schedule" style="margin: 20px 0px 0px 200px; position: absolute;" disabled>ASSIGN</button><br><br>
+                    <button type="submit" name="assign_schedule" style="margin: 20px 0px 0px 200px; position: absolute; display: none;" disabled>ASSIGN</button><br><br>
                 </div>
             </div>
 

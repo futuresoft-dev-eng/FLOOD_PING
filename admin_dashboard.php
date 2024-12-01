@@ -144,7 +144,7 @@
 <body>
     <?php 
         session_start(); 
-        include('./sidebar.php'); 
+        include('./adminsidebar.php'); 
         include_once('db_conn.php');
         date_default_timezone_set('Asia/Manila'); 
 

@@ -69,7 +69,7 @@ $mail->Port = 587;
                             <p>Hello,</p>
                             <p>Your account has been successfully unlocked. You can now log in to your account using your credentials.</p>
                             <p>Click the link below to login:</p>
-                            <a href='http://localhost/Floodping/login.php'>Log in to your account</a>
+                            <a href='login.php'>Log in to your account</a>
                             <p>Thank you!</p>
                         ";
 

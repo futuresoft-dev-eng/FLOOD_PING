@@ -34,10 +34,16 @@
         }
 
         .main-content {
-            margin-left: 100px; 
-            padding: 20px;
+            margin-left: 75px; 
+            padding: 0px;
+            flex-grow: 1;
             min-height: 100vh;
-
+            background-color: #f8f9fa;
+            box-sizing: border-box;
+            overflow-y: auto; 
+            margin-top: 60px; 
+            position: absolute;
+            width: 84%;
 
         }
 
@@ -131,6 +137,20 @@
             color: #fff;
             border-radius: 0 25px 25px 0;
             padding-left: 25px;
+        }
+
+        .active-link {
+            background-color: #4597C0;
+            color: #fff;
+            border-radius: 0 25px 25px 0;
+            padding: 12px 20px;
+            width: 100%;
+            text-decoration: none;
+            position: absolute;
+        }
+
+        .active-link .material-symbols-rounded {
+            vertical-align: middle; 
         }
 
         .material-symbols-rounded {
@@ -228,35 +248,34 @@
 </head>
 
 <body>
-
 <?php
 $fullName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Guest User';
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 ?>
-    <!-- Top bar  -->
-    <div class="top-bar d-md-none">
-        <a href="authority_dashboard.php" class="nav-link">
+       <!-- Top bar  -->
+       <div class="top-bar d-md-none">
+        <a href="admin_dashboard.php" class="nav-link">
             <span class="material-symbols-rounded">dashboard</span>
         </a>
-        <a href="reports.php" class="nav-link">
+        <a href="activitylog.php" class="nav-link">
             <span class="material-symbols-rounded">article</span>
         </a>
-        <a href="livecam.php" class="nav-link">
+        <a href="adminlivecam.php" class="nav-link">
             <span class="material-symbols-rounded">videocam</span>
         </a>
-        <a href="floodalerts.php" class="nav-link">
-            <span class="material-symbols-rounded">notifications_active</span>
+        <a href="add_user.php" class="nav-link">
+            <span class="material-symbols-rounded">manage_accounts</span>
         </a>
-        <a href="smsalerts.php" class="nav-link">
-            <span class="material-symbols-rounded">sms</span>
-        </a>
-        <a href="floodhistory.php" class="nav-link">
+        <a href="shiftmanagement.php" class="nav-link">
             <span class="material-symbols-rounded">history</span>
         </a>
-        <a href="/logout" class="nav-link">
-            <span class="material-symbols-rounded logout-icon">chevron_right</span>
+        <a href="admin_profile.php" class="nav-link">
+            <span class="material-symbols-rounded">account_circle</span>
         </a>
-    </div>
+        <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">
+            chevron_right
+        </span>
+      </div>
 
     <!-- Sidebar -->
     <nav class="sidebar d-none d-md-flex flex-column p-0">
@@ -272,58 +291,55 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         </div>
 
         <div class="sidebar-content">
-        <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="authority_dashboard.php" class="nav-link">
+                    <a href="admin_dashboard.php" class="active-link">
                         <span class="material-symbols-rounded">dashboard</span> <span class="icon-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="reports.php" class="nav-link">
-                        <span class="material-symbols-rounded">article</span> <span class="icon-text">Reports</span>
+                <li class="nav-item" style="margin-top: 60px;">
+                    <a href="activitylog.php" class="nav-link">
+                        <span class="material-symbols-rounded">article</span> <span class="icon-text">Activity Logs</span>
                     </a>
                 </li>
 
-                <div class="section-title">Flood Monitoring</div>
+                <div class="section-title" style="margin-top: 10px;">Flood Monitoring</div>
                 <li class="nav-item">
-                    <a href="livecam.php" class="nav-link">
+                    <a href="adminlivecam.php" class="nav-link">
                         <span class="material-symbols-rounded">videocam</span> <span class="icon-text">Live Camera Feed</span>
                     </a>
                 </li>
 
-                <div class="section-title">Alerts Management</div>
+                <div class="section-title" style="margin-top: 10px;">User Management</div>
                 <li class="nav-item">
-                    <a href="floodalerts.php" class="nav-link">
-                        <span class="material-symbols-rounded">notifications_active</span> <span class="icon-text">Flood Alerts</span>
+                    <a href="add_user.php" class="nav-link">
+                        <span class="material-symbols-rounded">manage_accounts</span> <span class="icon-text">Account Services</span>
                     </a>
                 </li>
 
+                <div class="section-title" style="margin-top: 10px;">Workforce Manager</div>
                 <li class="nav-item">
-                    <a href="smsalerts.php" class="nav-link">
-                        <span class="material-symbols-rounded">sms</span> <span class="icon-text">SMS Alerts</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="floodhistory.php" class="nav-link">
-                        <span class="material-symbols-rounded">history</span> <span class="icon-text">Flood History Logs</span>
+                    <a href="workforce_manager.php" class="nav-link">
+                        <span class="material-symbols-rounded">history</span> <span class="icon-text">Shift Management</span>
                     </a>
                 </li>
             </ul>
         </div>
-
         <h2>Logged in as:</h2>
-        <div class="user-info-container">
-            <a href="la_profile.php" class="user-link">
-                <span class="material-symbols-rounded user-icon">account_circle</span>
-                <div>
-                <div class="user-name"><?= htmlspecialchars($fullName); ?></div>
-                <div class="user-role"><?= htmlspecialchars($role); ?></div>
-                </div>
-            </a>
-            <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">
-            chevron_right
-        </span>
+<div class="user-info-container">
+    <a href="admin_profile.php" class="user-link">
+        <span class="material-symbols-rounded user-icon">account_circle</span>
+        <div>
+            <div class="user-name"><?= htmlspecialchars($fullName); ?></div>
+            <div class="user-role"><?= htmlspecialchars($role); ?></div>
         </div>
+    </a>
+    <span class="material-symbols-rounded logout-button" onclick="window.location.href='login.php';">
+        chevron_right
+    </span>
+</div>
+
+
     </nav>
 
     <!-- content area -->

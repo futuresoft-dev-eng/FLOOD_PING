@@ -37,6 +37,7 @@
             justify-content: space-between;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             height: 100px;
+            
         }
 
         .header-title {
@@ -66,6 +67,10 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            right: 60px;
+            width: 500px;
+            height: 340px;
+            gap: 20px;
         }
 
         .titlee {
@@ -119,6 +124,8 @@
             max-width: 100%;
             border-radius: 8px;
             margin-bottom: 10px;
+            display: flex;
+            text-align: left;
         }
 
         .info-buttons button {
@@ -128,6 +135,8 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
+            -ms-flex-align: end;
+            margin-left: 480px;
         }
 
         .info-buttons .watch-live {
@@ -139,13 +148,35 @@
             background-color: #007bff;
             color: white;
         }
+
+        .legend {
+            background-color: white;
+            border-radius: 8px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            font-size: 14px;
+            color: gray;
+        }
     </style>
 </head>
 <body>
     <?php 
         session_start(); 
+        include('./db_conn.php');
         include('./sidebar.php'); 
         date_default_timezone_set('Asia/Manila'); 
+
+        // Initialize total residents
+        $totalResidents = 0;
+
+        // Fetch the total number of residents
+        $result = $conn->query("SELECT COUNT(*) AS total FROM residents");
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $totalResidents = $row['total'];
+        }
     ?>
     <div class="container">
         <div class="header">
@@ -160,20 +191,20 @@
                     <div class="titlee">Flood Monitoring</div>
                     <div class="dashboard-row">
                         <div class="card">
-                            <h3>Water Level</h3>
                             <div class="card-value highlight-moderate">MODERATE</div>
+                            <h3>Water Level</h3>
                         </div>
                         <div class="card">
-                            <h3>Height</h3>
                             <div class="card-value">10.6 meters</div>
+                            <h3>Height</h3>
                         </div>
                         <div class="card">
-                            <h3>Actual Speed Rate</h3>
                             <div style="color:red;" class="card-value">0.02 m/min</div>
+                            <h3>Actual Speed Rate</h3>
                         </div>
                         <div class="card">
-                            <h3>Average Speed Rate</h3>
                             <div class="card-value">0.01 m/hr</div>
+                            <h3>Average Speed Rate</h3>
                         </div>
                     </div>
                 </div>
@@ -181,21 +212,21 @@
                     <div class="titlee">Resident Alerts</div>
                     <div class="dashboard-row">
                         <div class="card">
+                            <div class="card-value highlight-moderate"><?php echo $totalResidents; ?></div>
                             <h3>Number of Residents</h3>
-                            <div class="card-value">10</div>
                         </div>
                         <div class="card">
-                            <h3>Issued Flood Alerts</h3>
                             <div class="card-value">2</div>
+                            <h3>Issued Flood Alerts</h3>
                         </div>
                         <div class="card">
+                            <div class="card-value">0</div>
                             <h3>Credits Available</h3>
-                            <div class="card-value">980</div>
                         </div>
                     </div>
                 </div>
                 <div class="station-info">
-                    <img src="./images/darius.png" alt="Station Image">
+                    <img src="./images/darius.png" alt="Darius Creek Station Image">
                     <h3>DARIUS CREEK</h3>
                     <p><strong>Station Location:</strong> Near Santolan Street</p>
                     <div class="info-buttons">
@@ -208,8 +239,8 @@
             <!-- Right Section -->
             <div class="right-section">
                 <div class="titlee">Flood Height Point Graph</div>
-                <img src="./images/floodgraph.png" alt="Flood Graph" style="width: 100%; height: auto;">
-                <div style="background-color: white; border-radius: 8px;   text-align: center; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 50px; font-size: 14px; color: gray;"><b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
+                <img src="./images/floodgraph.png" alt="Flood Height Graph" style="width: 100%; height: auto;">
+                <div class="legend"><b>Legend:</b><br> Normal (9m) • Low (10m) • Moderate (13m) • Critical (15m)</div>
             </div>
         </div>
     </div>

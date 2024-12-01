@@ -65,7 +65,7 @@ if (isset($error_message)): ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Floodping</title>
-    <link rel="stylesheet" href="landingpage.css" />
+    <link rel="stylesheet" href="about.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -78,10 +78,10 @@ if (isset($error_message)): ?>
         <img class="FPlogo-image" src="images/FloodPingLogo.png" alt="Description of the image">  
             <h2 class="logo">Floodping</h2>
             <ul class="links">
-                <li><a href="#landingpage" class="active">HOME</a></li>
+                <li><a href="#landingpage">HOME</a></li>
                 <li><a href="livestream.php">LIVESTREAM</a></li>
-                <li><a href="#emergency">ABOUT</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="about.php" class="active">ABOUT</a></li>
+                <li><a href="contact.php">CONTACT</a></li>
             </ul>
             <div class="buttons">
                 <a href="login.php" class="signin" onclick="window.location.href='login'">LOG IN</a>
@@ -90,32 +90,6 @@ if (isset($error_message)): ?>
     </header>
     
   <body>
-    <section class="landingpage-section" id="landingpage">
-        <div class="page">
-            <div class="slideshow" id="slideshow">
-                <input type="radio" name="slide" id="item-1" checked="checked">
-                <div class="slideshow-item">
-                    <img src="https://imgsrv2.voi.id/93XnssFfhiOKM0x8fL9dg_xbu8USCu7OjPBFJfIMV8U/auto/1200/675/sm/1/bG9jYWw6Ly8vcHVibGlzaGVycy80MDg5NTIvMjAyNDA4MTkwOTE0LW1haW4uY3JvcHBlZF8xNzI0MDMzNjkyLmpwZw.jpg">
-                    <label for="item-3" class="previous">Go to slide 3</label>
-                    <label for="item-2" class="next">Go to slide 2</label>
-                </div>
-
-                <input type="radio" name="slide" id="item-2">
-                <div class="slideshow-item">
-                    <img src="https://billboardphilippines.com/wp-content/uploads/2024/08/mingyu-calvin-klein-ftr-img.jpg">
-                    <label for="item-1" class="previous">Go to slide 1</label>
-                    <label for="item-3" class="next">Go to slide 3</label>
-                </div>
-
-                <input type="radio" name="slide" id="item-3">
-                <div class="slideshow-item">
-                    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2024/08/Mingyu-Calin-Klein-Main-2024.jpg?w=1296">
-                    <label for="item-2" class="previous">Go to slide 2</label>
-                    <label for="item-1" class="next">Go to slide 1</label>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- emergency section -->
     <section class="emergency-section" id="emergency">
@@ -228,48 +202,7 @@ if (isset($error_message)): ?>
   <br>
 </section>
 
-  <section class="contact-us" id="contact">
-    <div class="contact-form">
-      <h1>Contact Us</h1>
-      <form action="index.php" method="POST">
-      <input type="text" name="name" required placeholder="Name">
-      <input type="email" name="email" required placeholder="Email">
-      <select id="concern" name="concern" required>
-      <option value="" disabled selected>Type of concern</option>
-      <option value="Feedback/Suggestions">Feedback/Suggestions</option>
-      <option value="Flood Alert Issues">Flood Alert Issues</option>
-      <option value="Account Deactivation">Account Deactivation</option>
-      <option value="Emergency Contact Update">Emergency Contact Update</option>
-      <option value="System Downtime/Outage">System Downtime/Outage</option>
-      <option value="Livestream Issues">Livestream Issues</option>
-      <option value="Other">Other</option>
-    </select>
-    <textarea name="message" required placeholder="Write your message here."></textarea>
-    <button type="submit">Submit</button>
-  </form>
-</div>
-</section>
-
-
-  <!-- map -->
-  <div class="contact-map">
-    <h2>Our Location</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.283189649812!2d121.0254427967896!3d14.696570800000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b12882130001%3A0x343d08778f211842!2sBarangay%20Bagbag!5e0!3m2!1sen!2sph!4v1731839827144!5m2!1sen!2sph" width="850" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</section>
-
-<!-- modal -->
-<?php if ($success): ?>
-<div id="successModal" class="modal" style="display: flex;">
-    <div class="modal-content">
-    <img class="email-photo" src="images/email.png">
-        <h2>Email sent!</h2>
-        <p>Your message has been sent successfully!</p>
-        <button id="okButton">OK</button>
-    </div>
-</div>
-<?php endif; ?>
-
+ 
 <!-- footer -->
 <footer class="footer">
     <div class="footer-container">
@@ -285,7 +218,7 @@ if (isset($error_message)): ?>
         </div>
         <div class="footer-social">
             <p>For news and updates, follow us on:</p>
-            <a href="https://www.facebook.com/floodping" target="_blank" class="social-icon">
+            <a href="https://www.facebook.com" target="_blank" class="social-icon" style="margin: 0px 0px 0px -380px; position: absolute;">
                 <i class="fab fa-facebook-f"></i>
             </a>
             <a href="https://www.instagram.com" target="_blank" class="social-icon">
@@ -300,45 +233,6 @@ if (isset($error_message)): ?>
 
 
 <script>
-  // function to handle the scroll event and activate the correct navlink
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.links a');
-    
-    sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-
-        if (window.scrollY >= sectionTop - sectionHeight / 3) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            // Skip activating LIVESTREAM link (index 1)
-            if (index !== 1) {
-                navLinks[index].classList.add('active');
-            }
-        }
-    });
-});
-
-// Function to handle clicks on navlinks
-const navLinks = document.querySelectorAll('.links a');
-navLinks.forEach((link, index) => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault(); 
-        
-        // scroll to the corresponding section when clicked
-        const targetSection = document.querySelector(link.getAttribute('href'));
-        window.scrollTo({
-            top: targetSection.offsetTop,
-            behavior: 'smooth'  
-        });
-
-        // remove 'active' class from all links and add it to the clicked link
-        navLinks.forEach(navLink => navLink.classList.remove('active'));
-        link.classList.add('active');
-    });
-});
-
-
     document.addEventListener("DOMContentLoaded", function () {
         // handle success modal
         const successModal = document.getElementById("successModal");

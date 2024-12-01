@@ -204,7 +204,7 @@ if (isset($_SESSION['full_name']) && isset($_SESSION['role'])) {
 
 <div class="button-container">
     <button class="navigation-btn active" id="userAccountsBtn" onclick="activateButton('userAccountsBtn', 'add_user.php')">User Accounts</button>
-    <button class="navigation-btn" id="residentsBtn" onclick="activateButton('residentsBtn', 'accountservices.php')">Resident List</button>
+    <button class="navigation-btn" id="residentsBtn" onclick="activateButton('residentsBtn', 'residents_list.php')">Resident List</button>
 </div>
 
 

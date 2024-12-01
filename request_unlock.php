@@ -83,7 +83,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
         }
 
         .FPlogo-image {
-            width: 3.3%;
+            width: 3%;
             height: 83%;
             margin: 0px 0px 0px -59px;
             position: absolute;
@@ -140,7 +140,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             width: 800px;
             height: 560px;
             border-radius: 24px;
-            margin: 120px 0px 0px 400px;
+            margin: 160px 0px 0px 450px;
         }
 
         .form-container p {
@@ -214,7 +214,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             padding: 5px 55px;
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 200px 0px 0px 0px;
+            margin: 300px 0px 0px 0px;
             position: absolute;
         }
 
@@ -245,11 +245,12 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
             font-weight: 550;
             text-transform: uppercase;
             color: #02476A; 
-            margin: 65px 0px 0px 245px; 
+            margin: 65px 0px 0px 270px; 
             position: absolute;
         }
 
         .modal {
+            display: hidden;
             position: fixed;
             z-index: 100;
             left: 0;
@@ -328,7 +329,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
         <img class="FPlogo-image" src="images/FloodPingLogo.png" alt="Description of the image">  
             <h2 class="logo">Floodping</h2>
             <ul class="links">
-                <li><a href="landingpage.php">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <li><a href="#">LIVESTREAM</a></li>
                 <li><a href="#emergency">ABOUT</a></li>
                 <li><a href="#contact">CONTACT</a></li>

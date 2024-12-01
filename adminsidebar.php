@@ -237,7 +237,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 ?>
        <!-- Top bar  -->
        <div class="top-bar d-md-none">
-        <a href="admindashboard.php" class="nav-link">
+        <a href="admin_dashboard.php" class="nav-link">
             <span class="material-symbols-rounded">dashboard</span>
         </a>
         <a href="activitylog.php" class="nav-link">
@@ -246,7 +246,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         <a href="adminlivecam.php" class="nav-link">
             <span class="material-symbols-rounded">videocam</span>
         </a>
-        <a href="accountservices.php" class="nav-link">
+        <a href="add_user.php" class="nav-link">
             <span class="material-symbols-rounded">manage_accounts</span>
         </a>
         <a href="workforce_manager.php" class="nav-link">
@@ -276,7 +276,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
         <div class="sidebar-content">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="admindashboard.php" class="nav-link">
+                    <a href="admin_dashboard.php" class="nav-link">
                         <span class="material-symbols-rounded">dashboard</span> <span class="icon-text">Dashboard</span>
                     </a>
                 </li>
@@ -295,7 +295,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'Unknown Role';
 
                 <div class="section-title">User Management</div>
                 <li class="nav-item">
-                    <a href="accountservices.php" class="nav-link">
+                    <a href="add_user.php" class="nav-link">
                         <span class="material-symbols-rounded">manage_accounts</span> <span class="icon-text">Account Services</span>
                     </a>
                 </li>

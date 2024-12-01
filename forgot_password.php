@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $tokenStmt->bind_param("sssss", $email, $reset_token, $expiry, $reset_token, $expiry);
 
             if ($tokenStmt->execute()) {
-                $reset_link = "http://localhost/Floodping/HOME/reset_password.php?token=$reset_token";  
+                $reset_link = "reset_password.php?token=$reset_token";  
                 $mail = new PHPMailer(true);
 
                 try {

@@ -4,6 +4,29 @@ session_start();
 include 'update_user.php'; 
 include 'db_conn.php';
 include 'adminsidebar-accountservices.php';
+
+// Fetch the user from the database based on some identifier (e.g., user_id)
+$user_id = $_GET['user_id'];  // Or you could use $_SESSION or any other way to get the user ID
+
+$sql = "SELECT * FROM archive_accounts WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Check if a user is found
+if ($result->num_rows > 0) {
+    // Fetch the user data into the $archive_accounts variable
+    $archive_accounts = $result->fetch_assoc();
+} else {
+    // Handle the case where the user is not found
+    echo "User not found!";
+    exit;
+}
+
+// Don't forget to close the statement and connection
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -150,18 +173,7 @@ include 'adminsidebar-accountservices.php';
 
         #profile_photo {
             display: none;
-        }
-
-        #uploadLabel {
-            font-size: 14px; 
-            color: white; 
-            cursor: pointer;
-            font-weight: normal;
-            margin: -85px 0px 0px 1170px; 
-            padding: 50px;
-            position: absolute;
-            min-width: 1000px !important;
-        }   
+        } 
 
         #profilePhotoPreview {
             text-align: center; 
@@ -173,13 +185,6 @@ include 'adminsidebar-accountservices.php';
             display: inline-block; 
             margin: 40px 0px 0px 1220px;
             position: absolute;
-        }
-
-        #upload-icon {
-            margin: -40px 0px 0px 1180px;
-            position: absolute;
-            color: white;
-            font-size: 30px;
         }
 
         .profile-info, .profile-photo { 
@@ -235,20 +240,6 @@ include 'adminsidebar-accountservices.php';
            
         }
         
-        #updateButton {
-            font-size: 14px;
-            width: 17%;
-            height: 11%;
-            padding: 8px auto;
-            border: none;
-            border-radius: 5px;
-            color: #FFFFFF;
-            background-color: #4597C0;
-            text-transform: uppercase;
-            margin: 508px 0px 0px 930px;
-            position: absolute;
-        }
-
         #view-activity-btn {
             font-size: 14px;
             width: 17%;
@@ -309,34 +300,6 @@ include 'adminsidebar-accountservices.php';
 
         }
 
-        #deactivateButton {
-            background-color: #EA3323;
-            font-size: 14px;
-            width: 13.5%;
-            height: 5%;
-            padding: 8px auto;
-            border: none;
-            border-radius: 5px;
-            color: #FFFFFF;
-            text-transform: uppercase;
-            margin: 435px 0px 0px 240px;
-            position: absolute;
-        }
-
-        #archiveButton {
-            font-size: 14px;
-            width: 12%;
-            height: 5.2%;
-            padding: 8px auto;
-            border: none;
-            border-radius: 5px;
-            color: #FFFFFF;
-            background-color: #EA3323;
-            text-transform: uppercase;
-            margin: 74px 0px 0px 750px;
-            position: absolute;
-        }
-
         #resident-title {
             font-size: 20px;
             font-weight: bold;
@@ -345,164 +308,13 @@ include 'adminsidebar-accountservices.php';
             text-transform: uppercase;
         }
         
-        .modal {
-            display: none;
-            position: fixed;
-            width: auto;
-            height: 102%;
-            overflow: auto;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-            margin-left: 550px;
-            position: fixed;
-            background-color: transparent;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            border-radius: 8px !important;
-            padding: 20px;
-            text-align: center;
-            min-width: 500px !important;
-            height: 250px;
-            position: relative;
-            font-size: 12px;
-            text-align: justify;
-            border: 2px solid #ccc;
-        }
-
-        .modal-content h2 {
-            width: 55%;
-            font-size: 15px;
-            text-align: center;
-            margin: 30px 0px 0px 140px;
-            position: absolute;
-        }
-
-        .modal-content p {
-            width: 75%;
-            font-size: 13px;
-            margin: 100px 0px 0px 75px;
-            position: absolute;
-            text-align: center;
-        }
-
-        .warning-sign {
-            width: 90px;
-            height: auto;
-            margin: 0px 0px 0px 40px !important;
-            position: absolute;
-        }
-
-        button#deact-button {
-            background-color: #EA3323;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 160px 0px 0px 110px;
-            width: 130px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        button#close-button {
-            background-color: #4597C0;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: -34px 0px 0px 260px;
-            width: 130px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-        
-        .modal-archive { 
-            width: 32%;
-            height: 620px;
-            background-color: transparent; 
-            justify-content: center;
-            align-items: center;
-            margin-top: -580px;
-            margin-left: 350px;
-            position: fixed;
-        }
-
-        #archive-model-content {
-            background-color: white;
-            border-radius: 8px !important;
-            padding: 20px;
-            text-align: center;
-            min-width: 500px !important;
-            height: 250px;
-            position: relative;
-            font-size: 12px;
-            text-align: justify;
-            border: 2px solid #ccc;
-
-        }
-
-        #archive-modal-content h2 {
-            width: 55%;
-            font-size: 15px;
-            text-align: center;
-            margin: 20px 0px 0px 140px;
-            position: absolute;
-        }
-
-        #archive-modal-content p {
-            width: 75%;
-            font-size: 13px;
-            margin: 95px 0px 0px 75px;
-            position: absolute;
-            text-align: center;
-        }
-
-        .warning-sign {
-            width: 90px;
-            height: auto;
-            margin: -5px 0px 0px 40px !important;
-            position: absolute;
-        }
-
-        button#archivebtn {
-            background-color: #EA3323;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 160px 0px 0px 140px;
-            width: 130px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        button#cancelbtn {
-            background-color: #4597C0;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: -35px 0px 0px 290px;
-            width: 130px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-
     </style>
 </head>
 
 <body>
     <div class="header">
-        <p id="resident-title"> User Details </p>
-    <a href="=add_user.php" class="back-button">
+        <p id="resident-title"> User's Details </p>
+    <a href="archive_account.php" class="back-button">
 <span class="material-symbols-rounded">arrow_back</span>
 </a>    
 <hr style="color: #ccc; width: 90%; position: absolute; margin: 90px 0px 0px -20px;">
@@ -514,15 +326,11 @@ include 'adminsidebar-accountservices.php';
     <div class="container">
     <div class="title-container">
         <h3>PROFILE</h3>
-   <form method="POST" enctype="multipart/form-data" action="update_user.php?user_id=<?= $user['user_id'] ?>">
+   <form method="POST" enctype="multipart/form-data" action="update_user.php?user_id=<?= $archive_accounts['user_id'] ?>">
     </div>
 
-    <!-- Custom Label as Button -->
-    <label id="uploadLabel" for="profilePhotoInput">UPLOAD A PHOTO</label>
-    <span class="material-symbols-rounded" id="upload-icon">file_upload</span>
-
-    <?php if (!empty($user['profile_photo'])): ?>
-        <img src="<?= htmlspecialchars($user['profile_photo']) ?>" id="profilePhotoPreview" alt="Profile Photo" width="150" height="150">
+    <?php if (!empty($archive_accounts['profile_photo'])): ?>
+        <img src="<?= htmlspecialchars($archive_accounts['profile_photo']) ?>" id="profilePhotoPreview" alt="Profile Photo" width="150" height="150">
     <?php else: ?>
         <p>No profile photo available.</p>
     <?php endif; ?>
@@ -534,35 +342,35 @@ include 'adminsidebar-accountservices.php';
     <br>
         <div class="info-group">
         <div class="info-item-id">
-    <label id="userID-title">Resident ID</label>
-    <input type="text" value="<?= htmlspecialchars($user['user_id']) ?>" readonly class="readonly-field"><br>
+    <label id="userID-title">User ID</label>
+    <input type="text" value="<?= htmlspecialchars($archive_accounts['user_id']) ?>" readonly class="readonly-field"><br>
     <br>
     </div> 
 
     <div class="info-item" id="personal">
     <p id="personal-info-title" style="margin: -30px 0px 5px -3px;">Personal Information</p>
     <label>First Name:</label>
-    <input type="text" name="first_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['first_name']) ?>"><br>
+    <input type="text" name="first_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['first_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Middle Name (Optional)</label>
-    <input type="text" name="middle_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['middle_name']) ?>"><br>
+    <input type="text" name="middle_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['middle_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Last Name</label>
-    <input type="text" name="last_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['last_name']) ?>"><br>
+    <input type="text" name="last_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['last_name']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Suffix (Optional)</label>
-    <input type="text" name="suffix" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['suffix']) ?>"><br>
+    <input type="text" name="suffix" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['suffix']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Contact No</label>
-    <input type="text" name="contact_no" value="<?= htmlspecialchars($user['contact_no']) ?>" id="contactNo" maxlength="11" oninput="validateContactNumber()"><br>
+    <input type="text" name="contact_no" value="<?= htmlspecialchars($archive_accounts['contact_no']) ?>" id="contactNo" maxlength="11" oninput="validateContactNumber()"><br>
     </div>
 
     <div class="info-item" style="margin-top: -20px;">
@@ -570,76 +378,74 @@ include 'adminsidebar-accountservices.php';
     <div class="sex-option">
     <input type="radio" name="sex" id="male-sex" value="Male" 
        style="margin: -0px 0px 0px -535px; position: absolute;" 
-       <?= ($user['sex'] === 'Male') ? 'checked' : '' ?>>
+       <?= ($archive_accounts['sex'] === 'Male') ? 'checked' : '' ?>>
 <label for="male-sex" style="margin-left: 40px; font-weight: 500; font-size: 14px;">Male</label><br>
 
 
     <input type="radio" name="sex" id="female-sex" value="Female" 
        style="margin: -0px 0px 0px -465px; position: absolute;" 
-       <?= ($user['sex'] === 'Female') ? 'checked' : '' ?>>
+       <?= ($archive_accounts['sex'] === 'Female') ? 'checked' : '' ?>>
 <label for="female-sex" style="margin: -0px 0px 0px 110px; font-weight: 500; font-size: 14px; position: absolute;">Female</label><br><br>
 </div>
     </div>
 
     <div class="info-item" id="personal">
     <label>Birthdate</label>
-    <input type="date" name="birthdate" value="<?= htmlspecialchars($user['birthdate']) ?>"><br>
+    <input type="date" name="birthdate" value="<?= htmlspecialchars($archive_accounts['birthdate']) ?>"><br>
     </div>
 
     <div class="info-item" id="personal">
     <label>Email</label>
-    <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>"><br>
+    <input type="text" name="email" value="<?= htmlspecialchars($archive_accounts['email']) ?>"><br>
     </div>
 
     <div class="info-item" id="brgy" style="margin-top: -10px;">
     <p id="address-title">Address</p>
     <br>
     <label>City</label>
-    <input type="text" name="city" value="<?= htmlspecialchars($user['city']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="city" value="<?= htmlspecialchars($archive_accounts['city']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>Barangay</label>
-    <input type="text" name="barangay" value="<?= htmlspecialchars($user['barangay']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="barangay" value="<?= htmlspecialchars($archive_accounts['barangay']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>House/Lot Number</label>
-    <input type="text" name="house_lot_number" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['house_lot_number']) ?>"><br>
+    <input type="text" name="house_lot_number" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['house_lot_number']) ?>"><br>
     </div>
 
     <div class="info-item" id="brgy">
     <label>Street/Subdivision Name</label>
-    <input type="text" name="street_subdivision_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($user['street_subdivision_name']) ?>"><br>
+    <input type="text" name="street_subdivision_name" oninput="capitalizeInput(event)" value="<?= htmlspecialchars($archive_accounts['street_subdivision_name']) ?>"><br>
     </div>
 
     <div class="info-item">
     <p style="margin: -5px 0px 0px -3px;">Job Description</p>
     <label>Role</label>
     <select name="role">
-        <option value="Admin" <?= ($user['role'] === 'Admin') ? 'selected' : '' ?>>Admin</option>
-        <option value="Local Authority" <?= ($user['role'] === 'Local Authority') ? 'selected' : '' ?>>Local Authority</option>
+        <option value="Admin" <?= ($archive_accounts['role'] === 'Admin') ? 'selected' : '' ?>>Admin</option>
+        <option value="Local Authority" <?= ($archive_accounts['role'] === 'Local Authority') ? 'selected' : '' ?>>Local Authority</option>
     </select><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Position</label>
     <select name="position">
-        <option value="Executive Officer" <?= ($user['position'] === 'Executive Officer') ? 'selected' : '' ?>>Executive Officer</option>
+        <option value="Executive Officer" <?= ($archive_accounts['position'] === 'Executive Officer') ? 'selected' : '' ?>>Executive Officer</option>
     </select><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Work Day Schedule</label>
-    <input type="text" name="schedule" value="<?= htmlspecialchars($user['schedule']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="schedule" value="<?= htmlspecialchars($archive_accounts['schedule']) ?>" readonly class="readonly-field"><br>
     </div>
 
     <div class="info-item" id="job">
     <label>Work Time Schedule</label>
-    <input type="text" name="shift" value="<?= htmlspecialchars($user['shift']) ?>" readonly class="readonly-field"><br>
+    <input type="text" name="shift" value="<?= htmlspecialchars($archive_accounts['shift']) ?>" readonly class="readonly-field"><br>
     </div>
-
-    <button id="updateButton" type="submit">UPDATE</button>
 </form>
  </div>
  </div>
@@ -648,56 +454,8 @@ include 'adminsidebar-accountservices.php';
     <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
     
     <label id="statuslbl">Status</label>
-    <input type="text" id="acc-status" name="account_status" value="<?= htmlspecialchars($user['account_status'] ?? 'Active') ?>" readonly class="readonly-field">
-    <?php if ($user['account_status'] == 'Inactive') : ?>
-        <button type="button" id="reactivateButton">REACTIVATE</button>
-    <?php elseif ($user['account_status'] == 'Active') : ?>
-        <button type="button" id="deactivateButton">DEACTIVATE</button>
-    <?php elseif ($user['account_status'] == 'Locked') : ?>
-        <button type="button" id="unlockButton">UNLOCK</button>
-    <?php endif; ?>
+    <input type="text" id="acc-status" name="account_status" value="<?= htmlspecialchars($archive_accounts['account_status'] ?? 'Active') ?>" readonly class="readonly-field">
 </form>
-
-<div id="deactivateModal" class="modal" style="display: none;">
-    <div class="modal-content">
-    <img class="warning-sign" src="images/warning-sign.png">
-        <h2>Are you sure you want to deactivate this account?</h2>
-        <p>Deactivating this profile will stop SMS alerts and notifications. Reactivate to resume upadates.</p>
-        <button id="deact-button" onclick="confirmStatusChange('deactivate')">deactivate</button>
-        <button id="close-button" onclick="closeModal('deactivateModal')">cancel</button>
-    </div>
-</div>
-<div id="reactivateModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <p>Are you sure you want to reactivate this account?</p>
-        <button onclick="confirmStatusChange('reactivate')">REACTIVATE</button>
-        <button onclick="closeModal('reactivateModal')">NO</button>
-    </div>
-</div>
-<div id="unlockModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <p>Are you sure you want to unlock this account?</p>
-        <button onclick="confirmStatusChange('unlock')">UNLOCK</button>
-        <button onclick="closeModal('unlockModal')">NO</button>
-    </div>
-</div>
-
-<form method="POST" action="archive_account.php" id="archiveForm">
-    <button type="button" id="archiveButton" name="archive" value="<?= htmlspecialchars($user['user_id']) ?>">ARCHIVE</button>
-</form>
-
-<!-- Archive-->
-<div id="archiveModal" class="modal-archive" style="display: none;">
-    <div class="modal-content" id="archive-modal-content">
-    <img class="warning-sign" src="images/warning-sign.png">
-    <h2>Are you sure you want to archive this account? This action cannot be undone.</h2>
-    <p>Archiving this account will make it inactive and inaccessible. You can only restore it by contacting support.</p>
-        <button id="archivebtn" onclick="confirmArchive()">ARCHIVE</button>
-        <button id="cancelbtn" onclick="closeModal('archiveModal')">CANCEL</button>
-    </div>
-</div>
-
-
 
 
 <script> // This script is for deactivating adn reactivating the account
